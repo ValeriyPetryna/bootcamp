@@ -1,7 +1,20 @@
-<div class="post">
-    <div class="post__title">{{ post.title }}</div>
-    <div class="post__date">{{ post.date | date : 'longDate' }}</div>
-    <div class="post__author">{{ post.author }}</div>
+<article class="post">
+    <div class="post__header">
+        <div class="post__author">
+            <div class="post__author-picture">
+                <img src="./assets/images/user-pic.png" alt="user-pic" width="50">
+            </div>
+            <div class="post__author-info">
+                <div class="post__author-name">{{ post.author }}</div>
+                <div class="post__date">{{ post.date | date : 'longDate' }}</div>
+            </div>
+        </div>     
+        <div class="post__like">
+            <img src="./assets/images/like.png" alt="likes" width="50" height="50">
+        </div>
+    </div>
+    <div class="post__title"><strong>{{ post.title }}</strong></div>
     <div class="post__content">{{ post.content }}</div>
+    <div class="post__content-more">Read more...</div>
     <hr>
-</div>
+</article>

@@ -1,18 +1,20 @@
 <form class="modal-body" [formGroup]="postForm" (ngSubmit)="onSubmit()">
     <div class="postForm__item">
-        <input formControlName="author" class="postForm__item--input" type="text" placeholder="Start typing here"/>
-        <div *ngIf="postForm.get('author')!.touched && postForm.get('fullname')!.invalid">
-            <p *ngIf="postForm.get('author')!.hasError('required')">Should be required</p>
-            <p *ngIf="postForm.get('author')!.hasError('minlength')">Should be more than</p>
-        </div>
+        <input formControlName="author" class="postForm__item--input" type="text" placeholder="Article author"/>
+        <p *ngIf="showValidationError('author')">Field author is required!</p>
+        <p *ngIf="showValidationError('author', 'minlength')">Should be more than</p>
     </div>
     <div class="postForm__item">
-        <input formControlName="title" class="postForm__item input" type="text" placeholder="Start typing here"/>
+        <input formControlName="title" class="postForm__item input" type="text" placeholder="Article title"/>
+        <p *ngIf="showValidationError('title')">Should be required</p>
+        <p *ngIf="showValidationError('title', 'minlength')">Should be more than</p>
     </div>
     <div class="postForm__item">
-        <input formControlName="content" class="postForm__item--input" type="text" placeholder="Start typing here"/>
+        <input formControlName="content" class="postForm__item--input" type="text" placeholder="Article content"/>
+        <p *ngIf="showValidationError('content')">Should be required</p>
+        <p *ngIf="showValidationError('content', 'minlength')">Should be more than</p>
     </div>
     <div class="postForm__item">
-        <button type="submit" class="postForm__item--submit" [disabled]="postForm.invalid">Publish article</button>
+        <button type="submit" class="postForm__item--submit">Publish article</button>
     </div>
 </form>

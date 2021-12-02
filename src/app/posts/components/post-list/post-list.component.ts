@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Post } from '../../../shared/interfaces/post.interface';
+import { PostFormService } from '../../services/post-form.service';
 
 @Component({
   selector: 'app-post-list',
@@ -7,7 +9,8 @@ import { Post } from '../../../shared/interfaces/post.interface';
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit,OnDestroy {
+  postServiceSubscription!: Subscription;
   posts: Post[] = [
     {
       author: 'John Snow',
@@ -23,10 +26,18 @@ export class PostListComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private postService: PostFormService) { }
 
   ngOnInit(): void {
+    this.postServiceSubscribe()
     console.log(this.posts)
   }
 
+  ngOnDestroy(): void {
+    this.postServiceSubscription.unsubscribe();
+  }
+
+  postServiceSubscribe() {
+    this.postServiceSubscription = this.postService.getPostData().subscribe((data: Post) => this.posts.push(data));
+  }
 }

@@ -9,18 +9,12 @@ import { PostFormComponent } from 'src/app/posts/components/post-form/post-form.
 })
 
 export class HeaderComponent {
-  title = 'My Blog';
+  title: string = 'My Blog';
   closeResult!: string;
 
-  constructor(
-    public modal: NgbModal
-  ) { 
-  }
+  constructor(public modal: NgbModal) { }
+
   openDialog(): void {
     this.modal.open(PostFormComponent, { size: 'xl' });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-    // });
   }  
 }

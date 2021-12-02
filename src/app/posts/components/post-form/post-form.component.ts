@@ -1,43 +1,44 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PostFormService } from '../../services/postForm.service';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { PostFormService } from '../../services/post-form.service';
 
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
-  styleUrls: ['./post-form.component.scss'],
-  styles: [`
-    .dark-modal .modal-content {
-      background-color: #292b2c;
-      color: white;
-    }
-    .dark-modal .close {
-      color: white;
-    }
-    .light-blue-backdrop {
-      background-color: #5cb3fd;
-    }
-  `]
+  styleUrls: ['./post-form.component.scss']
 })
+
 export class PostFormComponent{
   postForm: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    // public modalService: NgbModal,
-    // private postFormService: PostFormService
-  ) {
+  constructor(private formBuilder: FormBuilder, private postService: PostFormService) {
       this.postForm = this.formBuilder.group({
         author: ['', [Validators.required, Validators.minLength(4)]],
-        title: ['', []],
+        title: ['', [Validators.required, Validators.minLength(10)]],
         content: ['', []]
-        // date: [new Date(), [Validators.required, Validators.minLength(10)]],
       })
    }
 
   onSubmit() {
-    // if(this.postForm.invalid) return;
-    console.log(this.postForm.value);
-  // this.postFormService.updatePostData(this.formGroup.value);
+    if(this.postForm.status === 'VALID') {
+      this.postService.updatePostData(this.postForm.value);
+    } else {
+      this.validateAllFormFields(this.postForm)
+    }
+  }
+
+  showValidationError(fieldName: string, error = 'required'): boolean {
+    return this.postForm && this.postForm.controls[fieldName].touched && this.postForm.controls[fieldName].hasError(error);
+  }
+
+  validateAllFormFields(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup) {
+        this.validateAllFormFields(control);
+      }
+    });
   }
 }

@@ -1,6 +1,5 @@
 .content {
     display: flex;
-    // flex-direction: row;
     justify-content: space-between;
     margin: 5px;
     &__blog {
@@ -9,8 +8,8 @@
         border: 1px solid gray;
     }
     &__aside {
-        background-color: rgb(235, 227, 227);
-        flex-grow: 1;
+        background-color: rgb(207, 196, 196);
+        flex-grow: 2;
         border: 1px solid gray;
     }
 }
