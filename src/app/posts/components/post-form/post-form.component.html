@@ -1,0 +1,18 @@
+<form class="modal-body" [formGroup]="postForm" (ngSubmit)="onSubmit()">
+    <div class="postForm__item">
+        <input formControlName="author" class="postForm__item--input" type="text" placeholder="Start typing here"/>
+        <div *ngIf="postForm.get('author')!.touched && postForm.get('fullname')!.invalid">
+            <p *ngIf="postForm.get('author')!.hasError('required')">Should be required</p>
+            <p *ngIf="postForm.get('author')!.hasError('minlength')">Should be more than</p>
+        </div>
+    </div>
+    <div class="postForm__item">
+        <input formControlName="title" class="postForm__item input" type="text" placeholder="Start typing here"/>
+    </div>
+    <div class="postForm__item">
+        <input formControlName="content" class="postForm__item--input" type="text" placeholder="Start typing here"/>
+    </div>
+    <div class="postForm__item">
+        <button type="submit" class="postForm__item--submit" [disabled]="postForm.invalid">Publish article</button>
+    </div>
+</form>
