@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0 5px 20px;
+
+    &__title {
+        color: rgb(33, 226, 33);
+    }
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+a {
+    margin: 0 10px;
+}
