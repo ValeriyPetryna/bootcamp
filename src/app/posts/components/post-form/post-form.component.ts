@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { PostFormService } from '../../services/post-form.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-post-form',
@@ -11,7 +12,7 @@ import { PostFormService } from '../../services/post-form.service';
 export class PostFormComponent{
   postForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private postService: PostFormService) {
+  constructor(private formBuilder: FormBuilder, private postService: PostFormService, private modal: NgbModal) {
       this.postForm = this.formBuilder.group({
         author: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
         title: ['', [Validators.required, Validators.minLength(5)]],
@@ -23,6 +24,7 @@ export class PostFormComponent{
     if(this.postForm.status === 'VALID') {
       this.postService.updatePostData(this.postForm.value);
       this.postForm.reset();
+      this.modal.dismissAll()
     } else {
       this.validateAllFormFields(this.postForm)
     }

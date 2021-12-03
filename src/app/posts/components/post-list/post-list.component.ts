@@ -29,8 +29,7 @@ export class PostListComponent implements OnInit,OnDestroy {
   constructor(private postService: PostFormService) { }
 
   ngOnInit(): void {
-    this.postServiceSubscribe()
-    console.log(this.posts)
+    this.postServiceSubscribe();
   }
 
   ngOnDestroy(): void {
