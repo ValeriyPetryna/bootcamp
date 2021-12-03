@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PostFormComponent } from 'src/app/posts/components/post-form/post-form.component';
 
 @Component({
@@ -16,5 +16,5 @@ export class HeaderComponent {
 
   openDialog(): void {
     this.modal.open(PostFormComponent, { size: 'xl' });
-  }  
+  }
 }

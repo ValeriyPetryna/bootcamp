@@ -11,15 +11,23 @@
         display: flex;
         letter-spacing: 1px;
         font-family: cursive;
+        font-weight: bold;
         font-size: 25px;
 
-        &-picture, &-info, &-name {
+        &-picture, &-name {
             margin: 10px;
+        }
+        &-name {
+            color: green;
         }
     }
 
     &__title {
         font-size: 40px;
+    }
+
+    &__date {
+        font-size: 15px;
     }
 
     &__content {

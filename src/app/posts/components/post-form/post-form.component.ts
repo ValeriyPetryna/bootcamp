@@ -13,15 +13,16 @@ export class PostFormComponent{
 
   constructor(private formBuilder: FormBuilder, private postService: PostFormService) {
       this.postForm = this.formBuilder.group({
-        author: ['', [Validators.required, Validators.minLength(4)]],
-        title: ['', [Validators.required, Validators.minLength(10)]],
-        content: ['', []]
+        author: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+        title: ['', [Validators.required, Validators.minLength(5)]],
+        content: ['', [Validators.required, Validators.minLength(10)]]
       })
    }
 
   onSubmit() {
     if(this.postForm.status === 'VALID') {
       this.postService.updatePostData(this.postForm.value);
+      this.postForm.reset();
     } else {
       this.validateAllFormFields(this.postForm)
     }
