@@ -1,36 +1,13 @@
 .postForm {
-    display: flex;
-    margin: 50px;
-    flex-direction: column;
-    align-items: center;
-    &__item {
-        margin: 10px;
+  display: flex;
+  flex-direction: column;
 
-        input[type=text] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-            border: 2px solid rgb(197, 177, 177);
-            border-radius: 4px;
-            background-color: #bcffe6;
-            color: rgb(34, 33, 33);
-        }
+  &__item {
+    margin: 0 auto;
 
-        button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
-            padding: 15px 32px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-        }
+    &-input {
+      margin-bottom: 10px;
+      width: 400px;
     }
-}
-
-.validation {
-    color: red;
-    font-style: italic;
+  }
 }

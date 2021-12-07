@@ -4,14 +4,16 @@ import { Post } from '../../../shared/interfaces/post.interface';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
-  styleUrls: ['./post.component.scss']
+  styleUrls: ['./post.component.scss'],
 })
-
 export class PostComponent implements OnInit {
-  @Input() post!:Post;
+  @Input() post!: Post;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+
+  likePost() {
+    this.post.likes = this.post.likes ? this.post.likes + 1 : 0;
   }
 }

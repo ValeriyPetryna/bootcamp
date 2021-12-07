@@ -1,5 +1,11 @@
 .aside {
-    display: flex;
-    flex-direction: column;
-    margin: 20px;
+  display: flex;
+  flex-direction: column;
+  background-color: #b8b8b8;
+  // border: 1px solid gray;
+  padding: 5px;
+}
+
+p {
+  margin: 0;
 }
