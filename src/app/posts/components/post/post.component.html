@@ -1,4 +1,4 @@
-<article class="post">
+<article *ngIf="post" class="post">
   <div class="post__header">
     <div class="post__author">
       <div class="post__author-picture">
@@ -17,14 +17,14 @@
         (click)="likePost()"
       >
         <p class="post__like-number">
-          <strong> {{ post.likes || "" }}</strong>
+          {{ post.likes || "" }}
         </p>
         <mat-icon class="post__like-icon">favorite</mat-icon>
       </button>
     </div>
   </div>
   <div class="post__title">
-    <strong>{{ post.title }}</strong>
+    {{ post.title }}
   </div>
   <div class="post__content">{{ post.content }}</div>
   <div class="post__content-more">Read more...</div>

@@ -10,7 +10,7 @@ import { PostListComponent } from './posts/components/post-list/post-list.compon
 import { PostFormComponent } from './posts/components/post-form/post-form.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { HeaderComponent } from './shared/components/header/header.component';
-import { LikeComponent } from './shared/components/like/like.component';
+// import { LikeComponent } from './shared/components/like/like.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatButtonModule } from '@angular/material/button';
@@ -27,7 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HeaderComponent,
     PostComponent,
     SidebarComponent,
-    LikeComponent,
+    // LikeComponent,
     PostFormComponent,
   ],
   imports: [

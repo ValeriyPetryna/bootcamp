@@ -32,20 +32,14 @@ export class PostListComponent implements OnInit, OnDestroy {
   constructor(private postService: PostFormService) {}
 
   ngOnInit(): void {
-    this.postServiceSubscribe();
+    this.postServiceSubscription = this.postService
+      .getPostData()
+      .subscribe((data: Post) => {
+        this.posts.push(Object.assign(data, {date: new Date(), likes: 0}));
+      });
   }
 
   ngOnDestroy(): void {
     this.postServiceSubscription.unsubscribe();
-  }
-
-  postServiceSubscribe() {
-    this.postServiceSubscription = this.postService
-      .getPostData()
-      .subscribe((data: Post) => {
-        data.date = new Date();
-
-        this.posts.push(data);
-      });
   }
 }

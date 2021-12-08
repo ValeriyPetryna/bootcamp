@@ -1,3 +1,5 @@
+@import '/src/app/shared/styles/variables';
+
 .header {
   width: 80%;
   margin: 0 auto;
@@ -7,10 +9,10 @@
   align-items: center;
 
   &__title {
-    font-weight: 500;
     margin: 8px 0;
-    font-size: 35px;
-    color: rgb(33, 226, 33);
+    font-weight: $base-header-weight;
+    font-size: $base-header-size;
+    color: $base-header-color;
   }
 }
 

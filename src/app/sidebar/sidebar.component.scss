@@ -1,9 +1,10 @@
+@import '/src/app/shared/styles/variables';
+
 .aside {
   display: flex;
   flex-direction: column;
-  background-color: #b8b8b8;
-  // border: 1px solid gray;
   padding: 5px;
+  background-color: $base-sidebar-background;
 }
 
 p {
