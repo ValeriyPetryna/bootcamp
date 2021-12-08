@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { PostFormService } from '../../services/post-form.service';
+import { PostFormService } from '../../../blog/services/post-form.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({

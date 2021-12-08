@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PostFormComponent } from 'src/app/posts/components/post-form/post-form.component';
+import { PostFormComponent } from 'src/app/shared/components/post-form/post-form.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
