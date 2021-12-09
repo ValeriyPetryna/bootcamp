@@ -13,9 +13,23 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './post-form.component.html',
   styleUrls: ['./post-form.component.scss'],
 })
-
 export class PostFormComponent {
   postForm: FormGroup;
+  errors: any = {
+    author: {
+      required: 'Article author field is required.',
+      minlength: 'Article author field should be at least 4 characters long.',
+      maxlength: 'Article author field should be less than 50 characters long.',
+    },
+    title: {
+      required: 'Article title field is required.',
+      minlength: 'Article title field should be at least 5 characters long.',
+    },
+    content: {
+      required: 'Article content field is required.',
+      minlength: 'Article content field should be at least 10 characters long.',
+    },
+  };
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,12 +60,15 @@ export class PostFormComponent {
     }
   }
 
-  showValidationError(fieldName: string, error = 'required'): boolean {
-    return (
-      this.postForm &&
-      this.postForm.controls[fieldName].touched &&
-      this.postForm.controls[fieldName].hasError(error)
+  showValidationError(fieldName: string): string {
+    if (!this.postForm?.controls[fieldName].touched) {
+      return '';
+    }
+    const error = Object.keys(this.errors[fieldName]).find((err) =>
+      this.postForm.controls[fieldName].hasError(err)
     );
+
+    return error ? this.errors[fieldName][error] : '';
   }
 
   validateAllFormFields(formGroup: FormGroup) {
