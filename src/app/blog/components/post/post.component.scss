@@ -11,16 +11,17 @@
 
   &__author {
     display: flex;
-    letter-spacing: 1px;
-    font-family: cursive;
-    font-weight: bold;
-    font-size: 25px;
 
     &-picture,
     &-name {
       margin: 10px;
     }
+
     &-name {
+      letter-spacing: 1px;
+      font-family: cursive;
+      font-weight: bold;
+      font-size: 25px;
       color: $base-title-color;
     }
   }

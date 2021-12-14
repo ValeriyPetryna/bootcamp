@@ -3,23 +3,18 @@
     <div class="postForm__item">
       <mat-form-field class="postForm__item-input" appearance="fill">
         <mat-label>Author</mat-label>
-        <input
-          matInput
-          formControlName="author"
-          placeholder="John Snow"
-          required
-        />
-        <mat-error *ngIf="showValidationError('author', 'minlength')">
-          Author field must be at least 4 characters long.
+        <input matInput formControlName="author" placeholder="John Snow" />
+        <mat-error *ngIf="!!showValidationError('author')">
+          {{ showValidationError("author") }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="postForm__item">
       <mat-form-field class="postForm__item-input" appearance="fill">
         <mat-label>Article title</mat-label>
-        <input matInput formControlName="title" placeholder="title" required />
-        <mat-error *ngIf="showValidationError('title', 'minlength')">
-          Title field must be at least 5 characters long.
+        <input matInput formControlName="title" placeholder="title" />
+        <mat-error *ngIf="!!showValidationError('title')">
+          {{ showValidationError("title") }}
         </mat-error>
       </mat-form-field>
     </div>
@@ -31,10 +26,9 @@
           matInput
           formControlName="content"
           placeholder="content"
-          required
         ></textarea>
-        <mat-error *ngIf="showValidationError('content', 'minlength')">
-          Article content field must be at least 10 characters long.
+        <mat-error *ngIf="!!showValidationError('content')">
+          {{ showValidationError("content") }}
         </mat-error>
       </mat-form-field>
     </div>

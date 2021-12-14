@@ -20,6 +20,6 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {}
 
   likePost(): void {
-    this.post.likes = this.post.likes !== undefined ? this.post.likes + 1 : 0;
+    this.post.likes = this.post?.likes ? this.post.likes + 1 : 0
   }
 }
