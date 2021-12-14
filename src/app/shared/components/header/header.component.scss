@@ -1,21 +1,31 @@
+@import '/src/styles/variables';
+
 .header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin: 20px 0 5px 20px;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 
-    &__title {
-        color: rgb(33, 226, 33);
-    }
+  &__title {
+    margin: 8px 0;
+    font-weight: $base-header-weight;
+    font-size: $base-header-size;
+    color: $base-header-color;
+  }
 }
 
-nav {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
+.navbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 
-a {
+  &__item {
     margin: 0 10px;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+  }
 }

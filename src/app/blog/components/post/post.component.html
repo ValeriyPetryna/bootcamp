@@ -1,0 +1,28 @@
+<article *ngIf="post" class="post">
+  <div class="post__header">
+    <div class="post__author">
+      <div class="post__author-picture">
+        <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
+      </div>
+      <div class="post__author-info">
+        <p class="post__author-name">{{ post.author }}</p>
+        <p class="post__date">{{ post.date | date: "longDate" }}</p>
+      </div>
+    </div>
+    <div class="post__like">
+      <button
+        mat-mini-fab
+        color="primary"
+        aria-label="Example icon button with a heart icon"
+        (click)="likePost()"
+      >
+        <p class="post__like-number">{{ post.likes || "" }}</p>
+        <mat-icon class="post__like-icon">favorite</mat-icon>
+      </button>
+    </div>
+  </div>
+  <p class="post__title">{{ post.title }}</p>
+  <p class="post__content">{{ post.content }}</p>
+  <p class="post__content-more">Read more...</p>
+  <hr />
+</article>

@@ -1,0 +1,13 @@
+.postForm {
+  display: flex;
+  flex-direction: column;
+
+  &__item {
+    margin: 0 auto;
+
+    &-input {
+      margin-bottom: 10px;
+      width: 400px;
+    }
+  }
+}

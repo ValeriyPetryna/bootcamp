@@ -1,0 +1,65 @@
+@import '/src/styles/variables';
+
+.post {
+  margin: 10px 0;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  &__author {
+    display: flex;
+
+    &-picture,
+    &-name {
+      margin: 10px;
+    }
+
+    &-name {
+      letter-spacing: 1px;
+      font-family: cursive;
+      font-weight: bold;
+      font-size: 25px;
+      color: $base-title-color;
+    }
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 30px;
+  }
+
+  &__date {
+    margin: 10px;
+    font-size: 13px;
+  }
+
+  &__content {
+    width: 80%;
+    font-size: 16px;
+    &-more {
+      margin: 10px 0;
+      font-size: 10px;
+      font-family: cursive;
+      cursor: pointer;
+      color: $base-readmore-color;
+    }
+  }
+
+  &__like {
+    margin: 5px;
+    &-number {
+      margin: 0 13px;
+      font-size: 10px;
+      position: absolute;
+      color: $base-likes-color;
+    }
+
+    &-icon {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
