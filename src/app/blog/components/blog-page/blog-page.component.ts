@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../shared/interfaces/post.interface';
 import { PostFormService } from '../../services/post-form.service';
 
@@ -10,19 +10,15 @@ import { PostFormService } from '../../services/post-form.service';
 })
 export class BlogPageComponent implements OnInit, OnDestroy {
   postServiceSubscription!: Subscription;
-  posts: Post[] = [];
+  posts!: Observable<Post[]>;
 
   constructor(private postService: PostFormService) {}
 
   ngOnInit(): void {
-    this.postServiceSubscription = this.postService
-      .getPostData()
-      .subscribe((data: Post[]) => {
-        this.posts = data;
-      });
+    // get posts, subscribe on service data or use async pipe
+    this.posts = this.postService.getPosts();
   }
 
   ngOnDestroy(): void {
-    this.postServiceSubscription.unsubscribe();
   }
 }
