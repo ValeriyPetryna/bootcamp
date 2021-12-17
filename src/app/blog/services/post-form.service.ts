@@ -1,32 +1,27 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Post } from 'src/app/shared/interfaces/post.interface';
 
-const posts: Post[] = [
-  {
-    author: 'John Snow',
-    title: 'Natural language interface accessibility',
-    content:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis quibusdam minus sapiente facere ab quae libero necessitatibus quod? Voluptas, neque.',
-    date: new Date(),
-    likes: 1,
-  },
-  {
-    author: 'John Snow',
-    title: 'Accessibility of Remote Meetings',
-    content:
-      'Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis quibusdam minus sapiente facere ab quae libero necessitatibus quod? Voluptas, neque.',
-    date: new Date(),
-    likes: 2,
-  },
-];
-
+const basePostsURL = 'http://localhost:3000/api/posts';
 @Injectable({
   providedIn: 'root',
 })
 export class PostFormService {
-  private postStream = new BehaviorSubject<Post[]>(posts);
+  private postStream = new BehaviorSubject<Post[]>([]);
 
+  constructor (private http: HttpClient) {}
+
+  public getPosts(): Observable<Post[]> {
+    return this.http.get<Post[]>(basePostsURL);
+  }
+
+  public sendPost(post: Post): Observable<Post> {
+    const headers = { 'content-type': 'application/json'};
+    const body = JSON.stringify(post);
+    return this.http.post<Post>(basePostsURL, body, {'headers': headers});
+  }
+  // method => return Observable
   public getPostData(): Observable<Post[]> {
     return this.postStream.asObservable();
   }
