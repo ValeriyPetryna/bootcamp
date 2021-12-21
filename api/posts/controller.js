@@ -43,7 +43,11 @@ const getPosts = async (req, res, next) => {
 
 const createPost = async (req, res, next) => {
   try {
-    console.log('Post created')
+    const post = req.body;
+
+    if(post) {
+      res.status(200).json(post);
+    }
   } catch (error) {
     next(error);
   }

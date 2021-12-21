@@ -1,12 +1,17 @@
 const path = require("path");
 const express = require("express");
 const apiRouter = require("./routers");
+const bodyParser = require('body-parser');
 
-const port = 3000;
+const db = require("./db/mongo");
+
+const port = 8080;
 const serverPath = `http://localhost:${port}`;
 const distPath = "dist/bootcamp/";
-
+db();
 const app = express();
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(express.static(distPath));
 

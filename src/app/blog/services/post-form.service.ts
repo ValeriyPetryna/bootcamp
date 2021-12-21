@@ -10,16 +10,15 @@ const basePostsURL = 'http://localhost:3000/api/posts';
 export class PostFormService {
   private postStream = new BehaviorSubject<Post[]>([]);
 
-  constructor (private http: HttpClient) {}
+  constructor (public http: HttpClient) {}
 
   public getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(basePostsURL);
   }
 
-  public sendPost(post: Post): Observable<Post> {
-    const headers = { 'content-type': 'application/json'};
-    const body = JSON.stringify(post);
-    return this.http.post<Post>(basePostsURL, body, {'headers': headers});
+  public sendPost(post: any): any {
+    this.http.post<any>(basePostsURL, post).subscribe(res => console.log(res));
+    // return this.http.post<any>(basePostsURL, post);
   }
   // method => return Observable
   public getPostData(): Observable<Post[]> {
