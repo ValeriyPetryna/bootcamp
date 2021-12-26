@@ -6,7 +6,7 @@
       </div>
       <div class="post__author-info">
         <p class="post__author-name">{{ post.author }}</p>
-        <p class="post__date">{{ post.date | date: "longDate" }}</p>
+        <p class="post__date">{{ post.createdAt | date: "longDate" }}</p>
       </div>
     </div>
     <div class="post__like">
@@ -16,7 +16,7 @@
         aria-label="Example icon button with a heart icon"
         (click)="likePost()"
       >
-        <p class="post__like-number">{{ post.likes || "" }}</p>
+        <p class="post__like-number">{{ post.likes?.length || "" }}</p>
         <mat-icon class="post__like-icon">favorite</mat-icon>
       </button>
     </div>
