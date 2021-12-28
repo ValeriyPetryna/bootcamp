@@ -2,7 +2,7 @@ const { Post } = require("../db/models/blog");
 
 const getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find({}).sort({ date: -1 }).exec();
+    const posts = await Post.find({}).sort({ createdAt: -1 }).exec();
 
     res.send(posts);
   } catch (error) {
@@ -72,8 +72,9 @@ const deletePost = async (req, res, next) => {
 
     if (!removed) {
       res.status(500).send("Cannot find or delete document");
+    } else {
+      res.status(200).send();
     }
-    res.status(200).send(removed);
   } catch (error) {
     next(error);
   }
