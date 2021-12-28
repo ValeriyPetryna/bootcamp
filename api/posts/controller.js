@@ -2,7 +2,7 @@ const { Post } = require("../db/models/blog");
 
 const getPosts = async (req, res, next) => {
   try {
-    const posts = await Post.find({}).sort({ createdAt: -1 }).exec();
+    const posts = await Post.find({}).sort({ createdAt: -1 });
 
     res.send(posts);
   } catch (error) {
@@ -12,8 +12,8 @@ const getPosts = async (req, res, next) => {
 
 const getSinglePost = async (req, res, next) => {
   try {
-    const id = req.params.id;
-    const post = await Post.findById(id).exec();
+    const { id } = req.params;
+    const post = await Post.findById(id);
 
     if (post) {
       res.send(post);
