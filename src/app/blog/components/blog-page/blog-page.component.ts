@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../shared/interfaces/post.interface';
-import { PostFormService } from '../../services/post-form.service';
+import { BlogService } from '../../../shared/services/blog.service';
 
 @Component({
   selector: 'app-blog-page',
@@ -9,14 +9,12 @@ import { PostFormService } from '../../services/post-form.service';
   styleUrls: ['./blog-page.component.scss'],
 })
 export class BlogPageComponent implements OnInit, OnDestroy {
-  postServiceSubscription!: Subscription;
-  posts!: Observable<Post[]>;
+  posts!: Post[];
 
-  constructor(private postService: PostFormService) {}
+  constructor(private blogService: BlogService) {}
 
   ngOnInit(): void {
-    // get posts, subscribe on service data or use async pipe
-    this.posts = this.postService.getPosts();
+    this.blogService.feedPosts().subscribe(data => this.posts = data);
   }
 
   ngOnDestroy(): void {

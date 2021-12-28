@@ -1,8 +1,8 @@
 export interface Post {
-  id?: String;
-  title: String;
-  content: String;
-  author: String;
-  likes?: Array<String>;
+  _id?: string;
+  title: string;
+  content: string;
+  author: string;
+  likes?: Array<string>;
   createdAt?: Date
 }
