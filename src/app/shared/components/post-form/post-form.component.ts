@@ -52,7 +52,9 @@ export class PostFormComponent {
 
   onSubmit() {
     if (this.postForm.valid) {
+      this.postService.sendPost(this.postForm.value);
       this.postService.updatePostData(this.postForm.value);
+
       this.postForm.reset();
       this.modal.close();
     } else {
