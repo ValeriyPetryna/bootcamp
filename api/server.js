@@ -1,25 +1,30 @@
 const path = require("path");
 const express = require("express");
 const apiRouter = require("./routers");
+const bodyParser = require("body-parser");
+const db = require("./db/mongo");
 
-const port = 3000;
-const serverPath = `http://localhost:${port}`;
-const distPath = "dist/bootcamp/";
+const { DIST, PORT } = require("./utils/config");
+
+db();
 
 const app = express();
 
-app.use(express.static(distPath));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+app.use(express.static(DIST));
 
 app.use("/api", apiRouter);
 
 app.all("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../" + distPath + "/index.html"));
+  res.sendFile(path.join(__dirname, "../" + DIST + "/index.html"));
 });
 
 app.use((err, req, res, next) => {
   res.status(404).send(`Error occured: ${err.message}`);
 });
 
-app.listen(port, () => {
-  console.log(`Server started at: ${serverPath}`);
+app.listen(PORT, () => {
+  console.log(`Server started at: http://localhost:${PORT}`);
 });
