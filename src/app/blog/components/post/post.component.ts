@@ -14,6 +14,7 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {}
 
   likePost(): void {
+    //todo: add request to api
     this.post.likes?.push('fakeId');
   }
 }

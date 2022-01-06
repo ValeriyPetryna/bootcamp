@@ -1,18 +1,24 @@
-<mat-progress-bar
-  *ngIf="!post && !notFound" color="primary" mode="indeterminate">
-</mat-progress-bar>
+<mat-progress-bar *ngIf="!post && !notFound" color="primary" mode="indeterminate"> </mat-progress-bar>
 <article *ngIf="post" class="post">
-  <div class="post__header">
-    <div class="post__author">
-      <div class="post__author-picture">
-        <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
-      </div>
-      <div class="post__author-info">
-        <p class="post__author-name">{{ post.author }}</p>
-        <p class="post__date">{{ post.createdAt | date: "longDate" }}</p>
+  <div class="post__container">
+    <div class="post__header">
+      <div class="post__author">
+        <div class="post__author-picture">
+          <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
+        </div>
+        <div class="post__author-info">
+          <p class="post__author-name">{{ post.author }}</p>
+          <p class="post__date">{{ post.createdAt | date: "longDate" }}</p>
+        </div>
       </div>
     </div>
+    <div class="post__actions">
+      <button mat-fab color="primary" (click)="deletePost(post._id)" aria-label="Example icon button with a delete icon">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
   </div>
+
   <p class="post__title">{{ post.title }}</p>
   <p class="post__content">{{ post.content }}</p>
 </article>

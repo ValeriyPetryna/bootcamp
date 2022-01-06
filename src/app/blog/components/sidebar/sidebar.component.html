@@ -1,4 +1,8 @@
 <aside class="aside">
-  <p>Popular Tags</p>
-  <p>No tags are here ... yet.</p>
+  <p class="aside-header">Popular Tags</p>
+  <hr />
+  <mat-chip-list *ngIf="tags" class="pill-chip">
+    <mat-chip *ngFor="let tag of tags" color="primary" class="pill" (click)="filterByTag(tag.tag)" routerLink="" [queryParams]="{ tag: tag.tag }"> {{ tag.tag }} </mat-chip>
+  </mat-chip-list>
+  <p *ngIf="!tags">No tags added... yet.</p>
 </aside>

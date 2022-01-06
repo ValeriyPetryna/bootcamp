@@ -1,8 +1,13 @@
 export interface Post {
-  _id?: string;
+  _id: string;
   title: string;
   content: string;
   author: string;
   likes?: Array<string>;
-  createdAt?: Date
+  createdAt?: Date;
+  tags: [
+    {
+      tag: string;
+    }
+  ];
 }
