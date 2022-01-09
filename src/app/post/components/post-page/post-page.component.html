@@ -1,3 +1,6 @@
+<mat-progress-bar
+  *ngIf="!post && !notFound" color="primary" mode="indeterminate">
+</mat-progress-bar>
 <article *ngIf="post" class="post">
   <div class="post__header">
     <div class="post__author">
@@ -9,20 +12,11 @@
         <p class="post__date">{{ post.createdAt | date: "longDate" }}</p>
       </div>
     </div>
-    <div class="post__like">
-      <button
-        mat-mini-fab
-        color="primary"
-        aria-label="Example icon button with a heart icon"
-        (click)="likePost()"
-      >
-        <p class="post__like-number">{{ post.likes?.length || "" }}</p>
-        <mat-icon class="post__like-icon">favorite</mat-icon>
-      </button>
-    </div>
   </div>
   <p class="post__title">{{ post.title }}</p>
   <p class="post__content">{{ post.content }}</p>
-  <a class="post__content-more" [routerLink]="['posts', post._id]" >Read more...</a>
-  <hr />
 </article>
+<div class="error" *ngIf="notFound">
+  <h1>Error 404</h1>
+  <p>Cannot find post by selected id.</p>
+</div>

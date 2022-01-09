@@ -7,6 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { BlogModule } from './blog/blog.module';
+import { PostModule } from './post/post.module';
 import { HeaderModule } from './shared/components/header/header.module';
 
 @NgModule({
@@ -18,6 +19,7 @@ import { HeaderModule } from './shared/components/header/header.module';
     HttpClientModule,
     BlogModule,
     HeaderModule,
+    PostModule
   ],
   providers: [],
   bootstrap: [AppComponent],

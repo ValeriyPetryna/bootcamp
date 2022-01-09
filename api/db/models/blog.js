@@ -40,10 +40,12 @@ const post = Schema(
       type: [String],
       default: [],
     },
-    comments: {
-      ref: 'comment',
-      type: Schema.Types.ObjectId
-    },
+    comments: [
+      {
+        ref: 'Comment',
+        type: Schema.Types.ObjectId
+      }
+    ],
     tags: [String],
   },
   { timestamps: true }
