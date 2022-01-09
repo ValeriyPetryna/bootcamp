@@ -5,7 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { PostFormService } from '../../../blog/services/post-form.service';
+import { BlogService } from '../../services/blog.service';
 import { MatDialogRef } from '@angular/material/dialog';
 
 @Component({
@@ -33,7 +33,7 @@ export class PostFormComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private postService: PostFormService,
+    private blogService: BlogService,
     public modal: MatDialogRef<PostFormComponent>
   ) {
     this.postForm = this.formBuilder.group({
@@ -52,8 +52,7 @@ export class PostFormComponent {
 
   onSubmit() {
     if (this.postForm.valid) {
-      this.postService.sendPost(this.postForm.value);
-      this.postService.updatePostData(this.postForm.value);
+      this.blogService.createPost(this.postForm.value).subscribe(data => this.blogService.updatePostData(data));
 
       this.postForm.reset();
       this.modal.close();

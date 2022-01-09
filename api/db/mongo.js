@@ -5,7 +5,6 @@ const { MONGO_URL } = require("../utils/config");
 module.exports = () => {
   mongoose
     .connect(MONGO_URL, {
-      dbName: "blog",
       useNewUrlParser: true,
     })
     .then(() => {

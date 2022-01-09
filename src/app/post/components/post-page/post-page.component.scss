@@ -1,0 +1,49 @@
+@import '/src/styles/variables';
+
+.post {
+  margin: 10px 0;
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  &__author {
+    display: flex;
+
+    &-picture,
+    &-name {
+      margin: 10px;
+    }
+
+    &-name {
+      letter-spacing: 1px;
+      font-family: cursive;
+      font-weight: bold;
+      font-size: 25px;
+      color: $base-title-color;
+    }
+  }
+
+  &__title {
+    margin-bottom: 10px;
+    font-size: 30px;
+    text-align: center;
+  }
+
+  &__date {
+    margin: 10px;
+    font-size: 13px;
+  }
+
+  &__content {
+    font-size: 16px;
+    text-align: center;
+  }
+}
+
+.error {
+  text-align: center;
+  margin-top: 50px;
+}

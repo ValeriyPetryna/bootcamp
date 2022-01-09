@@ -7,10 +7,11 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [BlogPageComponent, PostComponent, SidebarComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule ],
   exports: [BlogPageComponent],
 })
 export class BlogModule {}

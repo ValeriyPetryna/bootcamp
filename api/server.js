@@ -6,9 +6,9 @@ const db = require("./db/mongo");
 
 const { DIST, PORT } = require("./utils/config");
 
-db();
-
 const app = express();
+
+db();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
