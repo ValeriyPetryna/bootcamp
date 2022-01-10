@@ -12,7 +12,7 @@ const findAll = async (tag) => {
           as: "tags",
         },
       },
-      { $match: { "tags.tag": tag } },
+      { $match: { "tags.name": tag } },
     ]);
   } else {
     posts = await Post.find({}).populate("tags", "tag -_id").sort({ createdAt: -1 });
@@ -22,7 +22,10 @@ const findAll = async (tag) => {
 };
 
 const findOne = async (id) => {
-  const post = await Post.findById(id).populate("comments", "content");
+  const post = await Post.findById(id).populate("comments", "content").populate("likes", "userId");
+  if (!post) {
+    throw new Error("Cannot find document");
+  }
   return post;
 };
 
@@ -52,50 +55,29 @@ const deleteOne = async (id) => {
   return removed;
 };
 
-const addComment = async (postId, commentId) => {
-  const pushComment = await Post.findByIdAndUpdate(
-    { _id: postId },
-    {
-      $push: { comments: commentId },
-    }
-  );
+//todo: define logic for post patch request instead toggles
+const likeToggle = async (options) => {
+  const updateQuery = !options.toggle ? { $push: { likes: options.likeId } } : { $pull: { likes: options.likeId } };
 
-  return pushComment;
+  const like = await Post.findByIdAndUpdate({ _id: options.postId }, updateQuery);
+
+  return like;
 };
 
-const removeComment = async (id) => {
-  const deleteComment = await Post.findByIdAndUpdate(
-    { _id: id },
-    {
-      $push: { comments: newComment._id },
-    }
-  );
+const commentToggle = async (options) => {
+  const updateQuery = options.toggle ? { $push: { comments: options.commentId } } : { $pull: { comments: options.commentId } };
 
-  return deleteComment;
+  const comment = await Post.findByIdAndUpdate({ _id: options.postId }, updateQuery);
+
+  return comment;
 };
 
-// todo: realize like toggle
-const addLike = async (postId, likeId) => {
-  const pushComment = await Post.findByIdAndUpdate(
-    { _id: postId },
-    {
-      $push: { likes: likeId },
-    }
-  );
+const tagToggle = async (options) => {
+  const updateQuery = !options.toggle ? { $push: { tags: options.tagId } } : { $pull: { tags: options.tagId } };
 
-  return pushComment;
-};
+  const tag = await Post.findByIdAndUpdate({ _id: options.postId }, updateQuery);
 
-// todo: realize tag toggle
-const addTag = async (postId, tagId) => {
-  const pushTag = await Post.findByIdAndUpdate(
-    { _id: postId },
-    {
-      $push: { tags: tagId },
-    }
-  );
-
-  return pushTag;
+  return tag;
 };
 
 module.exports = {
@@ -104,8 +86,7 @@ module.exports = {
   createOne,
   updateOne,
   deleteOne,
-  addComment,
-  removeComment,
-  addLike,
-  addTag,
+  commentToggle,
+  likeToggle,
+  tagToggle,
 };

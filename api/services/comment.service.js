@@ -5,30 +5,52 @@ const getAllComments = () => repo.findAll();
 
 const getOneComment = (id) => repo.findOne(id);
 
-const createComment = async (body) => {
-  // todo: add check that post exists for this comment
-
-  const { content, postId } = body;
-  const comment = { content, post: postId };
-
-  const newComment = await repo.createOne(comment);
-  const pushComment = await postRepo.addComment(postId, newComment._id);
-
-  if (!pushComment) {
-    return null;
-  }
-
-  return newComment;
-};
-
 const updateComment = (id, comment) => repo.updateOne(id, comment);
 
 const removeComment = (id) => repo.deleteOne(id);
 
+const setComment = async (postId, content) => {
+  await postRepo.findOne(postId); // check if post exists
+
+  if (content) {
+    const newComment = await repo.createOne({ postId, content });
+    const commentId = newComment._id;
+
+    const saved = await postRepo.commentToggle({ postId, commentId, toggle: true });
+    if (!saved) {
+      return "Cannot save comment";
+    }
+    return saved;
+  }
+};
+
+const unsetComment = async (commentId) => {
+  const comment = await repo.findOne(commentId);
+  if (!comment) {
+    throw new Error("Cannot find comment by selected id");
+  }
+  const postId = comment.postId;
+  const post = await postRepo.findOne(postId);
+
+  if (!post) {
+    throw new Error("Cannot find post by selected id");
+  }
+
+  const deleteComment = await repo.deleteOne(commentId);
+  const removeFromPost = await postRepo.commentToggle({ postId, commentId, toggle: false });
+
+  if (!removeFromPost || !deleteComment) {
+    return "Cannot remove comment from post";
+  }
+
+  return removeFromPost;
+};
+
 module.exports = {
   getAllComments,
   getOneComment,
-  createComment,
   updateComment,
   removeComment,
+  setComment,
+  unsetComment,
 };

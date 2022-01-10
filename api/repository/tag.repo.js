@@ -11,13 +11,13 @@ const findOne = async (id) => {
 };
 
 const createOne = async (tag) => {
-  const doesTagExists = await Tag.exists({ tag });
+  const doesTagExists = await Tag.exists({ name: tag });
 
   if (doesTagExists) {
     throw new Error(`Selected tag ${tag} already exist`);
   }
 
-  const newTag = await Tag.create({ tag });
+  const newTag = await Tag.create({ name: tag });
   return newTag;
 };
 

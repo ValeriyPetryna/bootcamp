@@ -1,4 +1,4 @@
-const { getAllComments, getOneComment, createComment, updateComment, removeComment } = require("../services/comment.service");
+const { getAllComments, getOneComment, updateComment, setComment, unsetComment } = require("../services/comment.service");
 
 const getAll = async (req, res, next) => {
   try {
@@ -30,7 +30,8 @@ const getOne = async (req, res, next) => {
 
 const createOne = async (req, res, next) => {
   try {
-    const newComment = await createComment(req.body);
+    const { postId, content } = req.body;
+    const newComment = await setComment(postId, content);
 
     if (newComment) {
       res.status(201).json(newComment);
@@ -67,7 +68,7 @@ const updateOne = async (req, res, next) => {
 const deleteOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const removed = await removeComment(id);
+    const removed = await unsetComment(id)
 
     if (!removed) {
       res.status(500).send({

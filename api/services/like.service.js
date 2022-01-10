@@ -5,33 +5,43 @@ const getAllLikes = () => repo.findAll();
 
 const getOneLike = (id) => repo.findOne(id);
 
-const setLike = async (body) => {
-  // todo: set original userId
-  let userId = "61d2e0c79af09b82be999df0";
-  const { postId } = body;
+const likeToggle = async (postId, userId) => {
+  const post = await postRepo.findOne(postId);
+  const isLiked = post.likes.filter((el) => el.userId.toString() === userId);
+  const toggle = isLiked.length;
 
-  const like = {
+  const likeOptions = {
     postId,
     userId,
+    toggle,
   };
 
-  // todo: use transaction
-  const newLike = await repo.createOne(like);
-  const pushLike = await postRepo.addLike(postId, newLike._id);
+  const likeId = await getLikeId(isLiked, likeOptions);
 
-  if (!pushLike) {
-    return null;
-  }
+  const result = await postRepo.likeToggle({ ...likeOptions, likeId });
 
-  return newLike;
+  return result;
 };
 
-// todo: remove like from post
-const removeLike = (id) => repo.deleteOne(id);
+const removeOne = (id) => repo.deleteOne(id);
+
+const getLikeId = async (exists, likeOptions) => {
+  let likeId;
+
+  if (!likeOptions.toggle) {
+    const newLike = await repo.createOne(likeOptions);
+    likeId = newLike._id;
+  } else {
+    likeId = exists[0]["_id"];
+    await repo.deleteOne(likeId);
+  }
+
+  return likeId;
+};
 
 module.exports = {
   getAllLikes,
   getOneLike,
-  setLike,
-  removeLike,
+  likeToggle,
+  removeOne,
 };

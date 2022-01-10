@@ -1,4 +1,4 @@
-const { getAllTags, getOneTag, createTag, updateTag, removeTag } = require("../services/tag.service");
+const { getAllTags, getOneTag, createTag, updateTag, removeTag, tagToggle } = require("../services/tag.service");
 
 const getAll = async (req, res, next) => {
   try {
@@ -85,10 +85,29 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
+const changeOne = async (req, res, next) => {
+  try {
+    const { postId, tagId } = req.body;
+    const tag = await tagToggle(postId, tagId);
+
+    if (tag) {
+      res.status(201).json(tag);
+    } else {
+      res.status(500).send({
+        status: 500,
+        message: "Cannot create document",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   getAll,
   getOne,
   createOne,
   updateOne,
   deleteOne,
+  changeOne,
 };

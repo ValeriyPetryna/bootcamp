@@ -17,6 +17,7 @@ const createOne = async (like) => {
 
 const deleteOne = async (id) => {
   const removed = await Like.findByIdAndRemove(id);
+
   return removed;
 };
 

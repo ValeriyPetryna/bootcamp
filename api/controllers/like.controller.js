@@ -1,4 +1,4 @@
-const { getAllLikes, getOneLike, setLike, removeLike } = require("../services/like.service");
+const { getAllLikes, getOneLike, likeToggle, removeLike } = require("../services/like.service");
 
 const getAll = async (req, res, next) => {
   try {
@@ -28,9 +28,11 @@ const getOne = async (req, res, next) => {
   }
 };
 
-const setOne = async (req, res, next) => {
+const changeOne = async (req, res, next) => {
   try {
-    const like = await setLike(req.body);
+    const { postId, userId } = req.body;
+
+    const like = await likeToggle(postId, userId);
 
     if (like) {
       res.status(201).json(like);
@@ -69,6 +71,6 @@ const deleteOne = async (req, res, next) => {
 module.exports = {
   getAll,
   getOne,
-  setOne,
+  changeOne,
   deleteOne,
 };

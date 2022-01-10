@@ -7,7 +7,7 @@ const comment = Schema(
     //   ref: "User",
     //   type: Schema.Types.ObjectId,
     // },
-    post: {
+    postId: {
       ref: "Post",
       type: Schema.Types.ObjectId,
     },
@@ -34,7 +34,7 @@ const like = Schema(
 );
 
 const tag = Schema({
-  tag: {
+  name: {
     type: String,
     unique: true,
   },
