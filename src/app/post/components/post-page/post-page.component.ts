@@ -15,6 +15,8 @@ export class PostPageComponent implements OnInit, OnDestroy {
   public id!: string | null;
   public notFound!: boolean;
   public post!: Post;
+  public showComments: boolean = false;
+  public buttonName: string = 'Show comments';
 
   constructor(private blogService: BlogService, private route: ActivatedRoute, private snackBarService: SnackBarService, private httpService: HttpService) {}
 
@@ -43,6 +45,11 @@ export class PostPageComponent implements OnInit, OnDestroy {
         this.snackBarService.openSnackBar(err);
       },
     });
+  }
+
+  public toggle() {
+    this.showComments = !this.showComments;
+    this.buttonName = !this.showComments ? 'Show comments' : 'Hide comments';
   }
 
   ngOnDestroy(): void {}

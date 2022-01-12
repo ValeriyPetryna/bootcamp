@@ -13,14 +13,45 @@
       </div>
     </div>
     <div class="post__actions">
-      <button mat-fab color="primary" (click)="deletePost(post._id)" aria-label="Example icon button with a delete icon">
-        <mat-icon>delete</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="deletePost(post._id)" mat-menu-item>
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 
   <p class="post__title">{{ post.title }}</p>
   <p class="post__content">{{ post.content }}</p>
+  <hr />
+  <mat-slide-toggle (click)="toggle()" color="primary">{{ buttonName }}</mat-slide-toggle>
+  <div *ngIf="showComments && post && post.comments" class="post__comments">
+    <hr />
+    <div *ngFor="let comment of post.comments">
+      <div class="comment">
+        <div class="post__header">
+          <div class="post__author">
+            <div class="post__author-picture">
+              <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
+            </div>
+            <div class="post__author-info">
+              <p class="post__author-name">Author name</p>
+              <p class="post__date">January 4, 2022</p>
+            </div>
+          </div>
+        </div>
+        <p class="comment__content">{{ comment.content }}</p>
+      </div>
+    </div>
+  </div>
 </article>
 <div class="error" *ngIf="notFound">
   <h1>Error 404</h1>

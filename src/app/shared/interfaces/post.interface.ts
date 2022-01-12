@@ -10,4 +10,9 @@ export interface Post {
       tag: string;
     }
   ];
+  comments?: [
+    {
+      content: string;
+    }
+  ];
 }

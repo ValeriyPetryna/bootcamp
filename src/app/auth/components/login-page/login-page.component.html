@@ -1,0 +1,28 @@
+<div class="container">
+  <form class="login" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+    <div class="login__field">
+      <mat-form-field class="login__field-input" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput formControlName="username" />
+        <mat-error *ngIf="!!showValidationError('username')">
+          {{ showValidationError("username") }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="login__field">
+      <mat-form-field class="login__field-input" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [type]="hide ? 'password' : 'text'" formControlName="password" />
+        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+        </button>
+        <mat-error *ngIf="!!showValidationError('password')">
+          {{ showValidationError("password") }}
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <div class="login__field">
+      <button type="submit" mat-raised-button color="primary">Login</button>
+    </div>
+  </form>
+</div>

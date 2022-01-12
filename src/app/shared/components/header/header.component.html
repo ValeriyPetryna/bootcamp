@@ -3,6 +3,23 @@
   <nav class="header__navbar">
     <a class="navbar__item" (click)="refreshData()" routerLink="" routerLinkActive="active">Home</a>
     <a class="navbar__item" (click)="openDialog()">New Article</a>
-    <a class="navbar__item">John Snow</a>
+    <a class="navbar__item" *ngIf="isLogged()">{{ user.username }}</a>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button routerLink="login" routerLinkActive="active" mat-menu-item>
+        <mat-icon>login</mat-icon>
+        <span>Log In</span>
+      </button>
+      <button mat-menu-item (click)="logOut()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Log Out</span>
+      </button>
+      <button routerLink="registration" routerLinkActive="active" mat-menu-item>
+        <mat-icon>perm_identity</mat-icon>
+        <span>Sign Up</span>
+      </button>
+    </mat-menu>
   </nav>
 </header>

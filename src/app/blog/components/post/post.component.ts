@@ -8,13 +8,15 @@ import { Post } from '../../../shared/interfaces/post.interface';
 })
 export class PostComponent implements OnInit {
   @Input() post!: Post;
+  toggle: boolean = false;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  likePost(): void {
+  public likePost(post: Post): void {
     //todo: add request to api
-    this.post.likes?.push('fakeId');
+    this.toggle = !this.toggle;
+    this.toggle ? post.likes?.push('fakeId') : post.likes?.splice(0, 1);
   }
 }
