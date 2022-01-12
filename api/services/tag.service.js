@@ -6,7 +6,6 @@ const getAllTags = () => repo.findAll();
 const getOneTag = (id) => repo.findOne(id);
 
 const createTag = async (body) => {
-  console.log(body)
   const { name } = body;
 
   if (!name) {

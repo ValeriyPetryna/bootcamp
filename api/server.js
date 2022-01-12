@@ -1,15 +1,17 @@
 const path = require("path");
 const express = require("express");
+const cors = require("cors");
 const apiRouter = require("./routes/index");
 const bodyParser = require("body-parser");
 const db = require("./db/mongo");
 
 const { DIST, PORT } = require("./utils/config");
+const { errorHandler } = require("./middlewares/index");
 
 const app = express();
 
 db();
-
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -21,9 +23,8 @@ app.all("*", (req, res) => {
   res.sendFile(path.join(__dirname, "../", DIST, "/index.html"));
 });
 
-app.use((err, req, res, next) => {
-  res.status(404).send(`Error occured: ${err.message}`);
-});
+// global error handler
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Server started at: http://localhost:${PORT}`);
