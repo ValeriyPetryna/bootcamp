@@ -5,7 +5,7 @@ import { PostPageComponent } from './post/components/post-page/post-page.compone
 
 const routes: Routes = [
   { path: '', component: BlogPageComponent },
-  { path: 'posts/:id', component: PostPageComponent},
+  { path: 'posts/:id', component: PostPageComponent },
   { path: '**', redirectTo: '' },
 ];
 

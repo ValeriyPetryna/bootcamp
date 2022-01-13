@@ -21,21 +21,14 @@
     <div class="postForm__item">
       <mat-form-field class="postForm__item-input" appearance="fill">
         <mat-label>Article content</mat-label>
-        <textarea
-          rows="8"
-          matInput
-          formControlName="content"
-          placeholder="content"
-        ></textarea>
+        <textarea rows="8" matInput formControlName="content" placeholder="content"></textarea>
         <mat-error *ngIf="!!showValidationError('content')">
           {{ showValidationError("content") }}
         </mat-error>
       </mat-form-field>
     </div>
     <div class="postForm__item">
-      <button type="submit" mat-raised-button color="primary">
-        Publish article
-      </button>
+      <button type="submit" mat-raised-button color="primary">Publish article</button>
     </div>
   </form>
 </div>

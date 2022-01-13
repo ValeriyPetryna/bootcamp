@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-// import { Observable, Subscription } from 'rxjs';
 import { Post } from '../../../shared/interfaces/post.interface';
 import { ActivatedRoute } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
 import { BlogService } from 'src/app/shared/services/blog.service';
-
+import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { HttpService } from 'src/app/shared/services/http.service';
 
 @Component({
   selector: 'app-post-page',
@@ -16,26 +16,34 @@ export class PostPageComponent implements OnInit, OnDestroy {
   public notFound!: boolean;
   public post!: Post;
 
-  constructor(private blogService: BlogService, private route: ActivatedRoute, private http: HttpClient) {}
+  constructor(private blogService: BlogService, private route: ActivatedRoute, private snackBarService: SnackBarService, private httpService: HttpService) {}
 
   ngOnInit(): void {
     this.id = this.route.snapshot.paramMap.get('id');
-    if(this.id) {
-      this.blogService.getPostById(this.id).subscribe({
-        next: (data) => this.post = data,
+    if (this.id) {
+      this.httpService.getPostById(this.id).subscribe({
+        next: (data) => (this.post = data),
         error: (e) => {
           console.error(e);
           this.notFound = true;
-        }
-      })
+        },
+      });
     } else {
       this.notFound = true;
     }
-
-    // should get posts on init, subscribe on service data or use async pipe
-    // this.posts = this.postService.getPosts();
   }
 
-  ngOnDestroy(): void {
+  public deletePost(id: string): void {
+    this.httpService.deletePostById(id).subscribe({
+      next: (res: unknown) => {
+        this.blogService.filterPostData(id);
+        this.snackBarService.openSnackBar(res);
+      },
+      error: (err: HttpErrorResponse) => {
+        this.snackBarService.openSnackBar(err);
+      },
+    });
   }
+
+  ngOnDestroy(): void {}
 }

@@ -1,6 +1,6 @@
 const path = require("path");
 const express = require("express");
-const apiRouter = require("./routers");
+const apiRouter = require("./routes/index");
 const bodyParser = require("body-parser");
 const db = require("./db/mongo");
 
@@ -18,7 +18,7 @@ app.use(express.static(DIST));
 app.use("/api", apiRouter);
 
 app.all("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../" + DIST + "/index.html"));
+  res.sendFile(path.join(__dirname, "../", DIST, "/index.html"));
 });
 
 app.use((err, req, res, next) => {
