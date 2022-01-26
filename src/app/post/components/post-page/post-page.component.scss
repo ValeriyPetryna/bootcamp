@@ -2,7 +2,7 @@
 
 .post {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 10px auto;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -53,6 +53,7 @@
 
   &__content {
     font-size: 16px;
+    margin-left: 20px;
   }
 
   &__comments {
@@ -68,12 +69,28 @@
 .comment {
   border: 0.5px solid;
   border-radius: 20px;
-  margin: 15px 0;
   box-shadow: 5px 5px #919191;
+  display: flex;
 
   &__content {
     margin-left: 20px;
     font-family: "Candara";
     font-size: 18px;
   }
+
+  &__form {
+    min-width: 200px;
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 20px;
+
+    &-input {
+      width: 100%;
+    }
+  }
+}
+
+.info {
+  margin: 10px auto;
+  text-align: center;
 }

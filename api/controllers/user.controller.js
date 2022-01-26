@@ -105,7 +105,7 @@ const moderatorBoard = (req, res) => {
 
 module.exports = {
   // getAll,
-  // getOne,
+  getOne,
   // createOne,
   // updateOne,
   // deleteOne,

@@ -11,12 +11,15 @@ const verifyToken = (req, res, next) => {
   if (!token) {
     return res.status(403).send({ message: "No token provided!" });
   }
+  const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+  req.body.userId = userId;
   // decode token
   jwt.verify(token, config.SECRET, (err, decoded) => {
     if (err) {
       next(err);
     } else {
-      req.userId = decoded.id;
+      req.body.userId = decoded.id;
       next();
     }
   });

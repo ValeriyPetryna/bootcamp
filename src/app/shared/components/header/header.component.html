@@ -1,22 +1,22 @@
 <header class="header">
   <h1 class="header__title">{{ title }}</h1>
   <nav class="header__navbar">
-    <a class="navbar__item" (click)="refreshData()" routerLink="" routerLinkActive="active">Home</a>
-    <a class="navbar__item" (click)="openDialog()">New Article</a>
-    <a class="navbar__item" *ngIf="isLogged()">{{ user.username }}</a>
+    <a class="header__navbar-item" (click)="refreshData()" [routerLink]="['']" [routerLinkActive]="['header__navbar-item--active']" [routerLinkActiveOptions]="{exact:true}">Home</a>
+    <a class="header__navbar-item" (click)="openDialog()" *ngIf="isUserLogged && user">New Article</a>
+    <a class="header__navbar-item" [routerLink]="['account']" [routerLinkActive]="['header__navbar-item--active']" *ngIf="isUserLogged && user">{{ user.username }}</a>
     <button mat-icon-button [matMenuTriggerFor]="menu">
       <mat-icon>menu</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button routerLink="login" routerLinkActive="active" mat-menu-item>
+      <button *ngIf="!isUserLogged" routerLink="login" routerLinkActive="active" mat-menu-item>
         <mat-icon>login</mat-icon>
         <span>Log In</span>
       </button>
-      <button mat-menu-item (click)="logOut()">
+      <button *ngIf="isUserLogged" mat-menu-item (click)="logOut()">
         <mat-icon>exit_to_app</mat-icon>
         <span>Log Out</span>
       </button>
-      <button routerLink="registration" routerLinkActive="active" mat-menu-item>
+      <button *ngIf="!isUserLogged && !user" routerLink="registration" routerLinkActive="active" mat-menu-item>
         <mat-icon>perm_identity</mat-icon>
         <span>Sign Up</span>
       </button>

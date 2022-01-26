@@ -35,14 +35,9 @@ export class LoginPageComponent implements OnInit {
 
   onSubmit() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
       this.auth.login(this.loginForm.value).subscribe({
-        next: (res: unknown) => {
-          console.log(res);
+        next: (res: any) => {
           this.snackBarService.openSnackBar(res);
-        },
-        error: (err: HttpErrorResponse) => {
-          this.snackBarService.openSnackBar(err);
         },
       });
       this.loginForm.reset();

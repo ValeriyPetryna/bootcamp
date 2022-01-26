@@ -11,13 +11,14 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatBadgeModule } from '@angular/material/badge';
+import {MatTableModule} from '@angular/material/table';
 
 import { BlogService } from '../shared/services/blog.service';
 import { HttpService } from '../shared/services/http.service';
 @NgModule({
   declarations: [BlogPageComponent, PostComponent, SidebarComponent],
-  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule, MatChipsModule, MatProgressBarModule, MatBadgeModule],
-  exports: [BlogPageComponent],
+  imports: [CommonModule, MatButtonModule, MatIconModule, RouterModule, MatChipsModule, MatProgressBarModule, MatBadgeModule, MatTableModule],
+  exports: [BlogPageComponent, PostComponent],
   providers: [
     BlogService,
     HttpService,

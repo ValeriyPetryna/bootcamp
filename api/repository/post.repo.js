@@ -1,6 +1,6 @@
 const { Post } = require("../db/models/blog");
 
-const findAll = async (tag) => {
+const findAll = async (tag, user) => {
   let posts;
   if (tag) {
     posts = await Post.aggregate([
@@ -12,17 +12,31 @@ const findAll = async (tag) => {
           as: "tags",
         },
       },
+      {
+        $lookup: {
+          from: "likes",
+          localField: "likes",
+          foreignField: "_id",
+          as: "likes",
+        },
+      },
       { $match: { "tags.name": tag } },
     ]);
   } else {
-    posts = await Post.find({}).populate("tags", "tag -_id").sort({ createdAt: -1 });
+    const query = user ? {userId: user} : {};
+    posts = await Post.find(query).populate("tags", "tag -_id").populate("likes").populate("userId", "profile username").sort({ createdAt: -1 });
   }
 
   return posts;
 };
 
 const findOne = async (id) => {
-  const post = await Post.findById(id).populate("comments", "content").populate("likes", "userId");
+  const post = await Post.findById(id).populate("likes", "userId").populate({
+    path: 'comments',
+    select: "content userId",
+    populate: { path: 'userId', select: 'username' }
+  });
+
   if (!post) {
     throw new Error("Cannot find document");
   }

@@ -32,10 +32,7 @@ export class SnackBarService {
     snack.onAction().subscribe(this.redirect());
   }
 
-  public errorSnack(res: HttpErrorResponse): void {
-    let snack = this._snackBar.open(res.error.message, 'Close', this.options);
-
-    snack.afterDismissed().subscribe(this.redirect());
-    snack.onAction().subscribe(this.redirect());
+  public errorSnack(res: string): void {
+    let snack = this._snackBar.open(res, 'Close', this.options);
   }
 }

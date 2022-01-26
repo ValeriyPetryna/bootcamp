@@ -40,15 +40,13 @@ export class RegistrationPageComponent implements OnInit {
 
   onSubmit() {
     if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value);
       this.auth.signUp(this.signUpForm.value).subscribe({
-        next: (res: unknown) => {
-          console.log(res);
+        next: (res: any) => {
           this.snackBarService.openSnackBar(res);
         },
-        error: (err: HttpErrorResponse) => {
-          this.snackBarService.openSnackBar(err);
-        },
+        // error: (err: HttpErrorResponse) => {
+        //   this.snackBarService.openSnackBar(err);
+        // },
       });
       this.signUpForm.reset();
     } else {

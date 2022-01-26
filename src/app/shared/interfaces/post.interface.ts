@@ -3,16 +3,21 @@ export interface Post {
   title: string;
   content: string;
   author: string;
-  likes?: Array<string>;
+  likes?: Array<any>;
   createdAt?: Date;
-  tags: [
-    {
-      tag: string;
-    }
-  ];
-  comments?: [
-    {
-      content: string;
-    }
-  ];
+
+  tags: Array<Tag>;
+  comments?: Array<Comment>;
+}
+
+export interface Tag {
+  name: string;
+}
+
+export interface Comment {
+  _id: string;
+  content: string;
+  userId: {
+    username: string;
+  };
 }

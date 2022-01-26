@@ -7,7 +7,7 @@ const findAll = async () => {
 };
 
 const findOne = async (query) => {
-  const user = await User.findOne(query).populate("roles", "-__v");
+  const user = await User.findOne(query).populate("roles", "name -_id");
   return user;
 };
 

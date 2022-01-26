@@ -1,7 +1,7 @@
 const repo = require("../repository/post.repo");
 
-const getAllPosts = async (tag) => {
-  const posts = await repo.findAll(tag);
+const getAllPosts = async (tag, user) => {
+  const posts = await repo.findAll(tag, user);
 
   return posts;
 };
