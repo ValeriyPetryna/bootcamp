@@ -13,15 +13,75 @@
       </div>
     </div>
     <div class="post__actions">
-      <button mat-fab color="primary" (click)="deletePost(post._id)" aria-label="Example icon button with a delete icon">
-        <mat-icon>delete</mat-icon>
+      <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        <button (click)="deletePost(post._id)" mat-menu-item [disabled]="!isUserLogged">
+          <mat-icon>delete</mat-icon>
+          <span>Delete</span>
+        </button>
+        <button mat-menu-item (click)="editPost(post)" [disabled]="!isUserLogged">
+          <mat-icon>edit</mat-icon>
+          <span>Edit</span>
+        </button>
+      </mat-menu>
     </div>
   </div>
 
   <p class="post__title">{{ post.title }}</p>
   <p class="post__content">{{ post.content }}</p>
+  <hr />
+  <mat-slide-toggle (click)="toggle()" color="primary">{{ buttonName }}</mat-slide-toggle>
 </article>
+<div *ngIf="showComments && post?.comments?.length">
+  <hr />
+  <div *ngFor="let comment of post.comments" class="post comment">
+    <div class="post__container">
+      <div class="post__header">
+        <div class="post__author">
+          <div class="post__author-picture">
+            <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
+          </div>
+          <div class="post__author-info">
+            <p class="post__author-name">{{ comment.userId.username }}</p>
+            <p class="post__date">January 4, 2022</p>
+          </div>
+        </div>
+      </div>
+      <div class="post__actions">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button (click)="deleteComment(comment._id)" mat-menu-item [disabled]="!isUserLogged">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+          <button mat-menu-item [disabled]="!isUserLogged">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+    <p class="post__content">{{ comment.content }}</p>
+  </div>
+</div>
+
+<!-- <hr /> -->
+<p *ngIf="!post?.comments?.length" class="info">No comments found</p>
+
+<form *ngIf="isUserLogged" class="post comment__form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field class="comment__form-input" appearance="fill">
+    <mat-label>Leave a comment</mat-label>
+    <textarea matInput cdkTextareaAutosize placeholder="Ex. It makes me feel..." formControlName="comment"></textarea>
+  </mat-form-field>
+  <mat-error *ngIf="!!validateForm"> This field is required. </mat-error>
+
+  <button type="submit" mat-raised-button color="accent">Submit</button>
+</form>
+
 <div class="error" *ngIf="notFound">
   <h1>Error 404</h1>
   <p>Cannot find post by selected id.</p>

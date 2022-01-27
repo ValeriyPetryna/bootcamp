@@ -3,10 +3,10 @@ const { Schema } = mongoose;
 
 const comment = Schema(
   {
-    // user: {
-    //   ref: "User",
-    //   type: Schema.Types.ObjectId,
-    // },
+    userId: {
+      ref: "User",
+      type: Schema.Types.ObjectId,
+    },
     postId: {
       ref: "Post",
       type: Schema.Types.ObjectId,
@@ -72,7 +72,7 @@ const post = Schema(
         type: Schema.Types.ObjectId,
       },
     ],
-    user: {
+    userId: {
       ref: "User",
       type: Schema.Types.ObjectId,
     },

@@ -1,4 +1,4 @@
-@import '/src/styles/variables';
+@import "/src/styles/variables";
 
 .header {
   width: 80%;
@@ -14,18 +14,24 @@
     font-size: $base-header-size;
     color: $base-header-color;
   }
-}
 
-.navbar {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  &__navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
 
-  &__item {
-    margin: 0 10px;
-    text-decoration: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 500;
+    &-item {
+      margin: 0 10px;
+      text-decoration: none;
+      cursor: pointer;
+      font-size: 15px;
+      font-weight: 500;
+      color: black;
+
+      &--active {
+        color: $base-title-color;
+      }
+    }
   }
 }

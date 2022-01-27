@@ -30,8 +30,8 @@ const getOne = async (req, res, next) => {
 
 const createOne = async (req, res, next) => {
   try {
-    const { postId, content } = req.body;
-    const newComment = await setComment(postId, content);
+    const { postId, content, userId } = req.body;
+    const newComment = await setComment(postId, content, userId);
 
     if (newComment) {
       res.status(201).json(newComment);

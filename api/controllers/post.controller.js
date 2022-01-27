@@ -1,9 +1,9 @@
 const { getAllPosts, getOnePost, createPost, updatePost, removePost } = require("../services/post.service");
 
 const getAll = async (req, res, next) => {
-  const { tag } = req.query;
+  const { tag, user } = req.query;
   try {
-    const result = await getAllPosts(tag);
+    const result = await getAllPosts(tag, user);
     res.send(result);
   } catch (error) {
     next(error);
@@ -31,7 +31,6 @@ const getOne = async (req, res, next) => {
 
 const createOne = async (req, res, next) => {
   const post = req.body;
-
   try {
     const newPost = await createPost(post);
 

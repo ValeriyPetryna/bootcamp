@@ -12,6 +12,7 @@ const findOne = async (id) => {
 
 const createOne = async (comment) => {
   const newComment = await Comment.create(comment);
+
   return newComment;
 };
 

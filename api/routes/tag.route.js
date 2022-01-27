@@ -3,7 +3,6 @@ const router = express.Router();
 
 const tagCtrl = require("../controllers/tag.controller");
 
-
 router.get("/", tagCtrl.getAll);
 router.get("/:id", tagCtrl.getOne);
 router.post("/:tag", tagCtrl.createOne);

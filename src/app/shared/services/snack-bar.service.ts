@@ -14,12 +14,12 @@ export class SnackBarService {
 
   constructor(private _snackBar: MatSnackBar, private router: Router) {}
 
-  public redirect() {
-    return () => this.router.navigate(['']);
+  public redirect(link: string = '') {
+    return () => this.router.navigate([link]);
   }
 
   public openSnackBar(res: HttpErrorResponse | ServerResponse | any): void {
-    let snack = this._snackBar.open(res.error?.message || res.message, 'Close', this.options);
+    let snack = this._snackBar.open(res.error?.message || res.message || 'Success!', 'Close', this.options);
 
     snack.afterDismissed().subscribe(this.redirect());
     snack.onAction().subscribe(this.redirect());
@@ -32,10 +32,7 @@ export class SnackBarService {
     snack.onAction().subscribe(this.redirect());
   }
 
-  public errorSnack(res: HttpErrorResponse): void {
-    let snack = this._snackBar.open(res.error.message, 'Close', this.options);
-
-    snack.afterDismissed().subscribe(this.redirect());
-    snack.onAction().subscribe(this.redirect());
+  public errorSnack(res: string): void {
+    let snack = this._snackBar.open(res, 'Close', this.options);
   }
 }
