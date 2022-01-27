@@ -7,7 +7,7 @@ const cors = require("cors");
 const apiRouter = require("./routes/index");
 const bodyParser = require("body-parser");
 
-const { DIST, PORT } = require("./utils/config");
+const { DIST } = require("./utils/config");
 const { errorHandler } = require("./middlewares/index");
 
 const app = express();
@@ -30,6 +30,6 @@ app.all("*", (req, res) => {
 // global error handler
 app.use(errorHandler);
 
-app.listen(PORT, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started at: http://localhost:${PORT}`);
 });
