@@ -1,5 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './registration-page.component.html',
   styleUrls: ['./registration-page.component.scss'],
 })
-export class RegistrationPageComponent implements OnInit {
+export class RegistrationPageComponent {
   hide: boolean = false;
   signUpForm: FormGroup;
   errors: any = {
@@ -35,8 +34,6 @@ export class RegistrationPageComponent implements OnInit {
       email: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (this.signUpForm.valid) {

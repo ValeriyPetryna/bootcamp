@@ -24,15 +24,16 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSub = this.auth.user().subscribe((data) => (this.user = data));
-
-    this.http.getUserById(this.user.id).subscribe((data) => {
-      this.userInfo = data;
-
-      this.http.getUserPosts(this.user.id).subscribe((data) => {
-        this.myPosts = data;
-        this.dataSource = new MatTableDataSource(data);
+    if(this.user?.id) {
+      this.http.getUserById(this.user.id).subscribe((data) => {
+        this.userInfo = data;
+  
+        this.http.getUserPosts(this.user.id).subscribe((data) => {
+          this.myPosts = data;
+          this.dataSource = new MatTableDataSource(data);
+        });
       });
-    });
+    }
   }
 
   applyFilter(event: Event) {

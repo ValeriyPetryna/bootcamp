@@ -1,5 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './login-page.component.html',
   styleUrls: ['./login-page.component.scss'],
 })
-export class LoginPageComponent implements OnInit {
+export class LoginPageComponent {
   hide = true;
   loginForm: FormGroup;
   errors: any = {
@@ -30,8 +29,6 @@ export class LoginPageComponent implements OnInit {
       password: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
-
-  ngOnInit(): void {}
 
   onSubmit() {
     if (this.loginForm.valid) {
