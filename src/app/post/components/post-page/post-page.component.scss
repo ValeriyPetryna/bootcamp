@@ -1,7 +1,21 @@
-@import '/src/styles/variables';
+@import "/src/styles/variables";
 
 .post {
-  margin: 10px 0;
+  max-width: 1200px;
+  margin: 10px auto;
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &__container {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+  }
 
   &__header {
     display: flex;
@@ -39,11 +53,44 @@
 
   &__content {
     font-size: 16px;
-    text-align: center;
+    margin-left: 20px;
+  }
+
+  &__comments {
+    width: 100%;
   }
 }
 
 .error {
   text-align: center;
   margin-top: 50px;
+}
+
+.comment {
+  border: 0.5px solid;
+  border-radius: 20px;
+  box-shadow: 5px 5px #919191;
+  display: flex;
+
+  &__content {
+    margin-left: 20px;
+    font-family: "Candara";
+    font-size: 18px;
+  }
+
+  &__form {
+    min-width: 200px;
+    max-width: 1200px;
+    width: 100%;
+    margin-top: 20px;
+
+    &-input {
+      width: 100%;
+    }
+  }
+}
+
+.info {
+  margin: 10px auto;
+  text-align: center;
 }

@@ -1,13 +1,10 @@
-import { Component } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BlogService } from '../../services/blog.service';
 import { MatDialogRef } from '@angular/material/dialog';
-
+import { HttpService } from '../../services/http.service';
+import {MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { Post } from '../../interfaces/post.interface';
 @Component({
   selector: 'app-post-form',
   templateUrl: './post-form.component.html',
@@ -31,28 +28,23 @@ export class PostFormComponent {
     },
   };
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private blogService: BlogService,
-    public modal: MatDialogRef<PostFormComponent>
-  ) {
+  constructor(private formBuilder: FormBuilder, private blogService: BlogService, public modal: MatDialogRef<PostFormComponent>, private httpService: HttpService,  @Inject(MAT_DIALOG_DATA) public data: any) {
     this.postForm = this.formBuilder.group({
-      author: [
-        '',
-        [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(50),
-        ],
-      ],
-      title: ['', [Validators.required, Validators.minLength(5)]],
-      content: ['', [Validators.required, Validators.minLength(10)]],
+      author: [this.data?.author || '', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
+      title: [this.data?.title || '', [Validators.required, Validators.minLength(5)]],
+      content: [this.data?.content || '', [Validators.required, Validators.minLength(10)]],
     });
   }
 
   onSubmit() {
     if (this.postForm.valid) {
-      this.blogService.createPost(this.postForm.value).subscribe(data => this.blogService.updatePostData(data));
+      if(this.data) {
+        // check that something was changed and send patch request
+        const res = this.objectDeepDiff(this.postForm.value, this.data);
+        console.log(res)
+      } else {
+        this.httpService.createPost(this.postForm.value).subscribe((data) => this.blogService.updatePostData(data));
+      }
 
       this.postForm.reset();
       this.modal.close();
@@ -65,9 +57,7 @@ export class PostFormComponent {
     if (!this.postForm?.controls[fieldName].touched) {
       return '';
     }
-    const error = Object.keys(this.errors[fieldName]).find((err) =>
-      this.postForm.controls[fieldName].hasError(err)
-    );
+    const error = Object.keys(this.errors[fieldName]).find((err) => this.postForm.controls[fieldName].hasError(err));
 
     return error ? this.errors[fieldName][error] : '';
   }
@@ -82,4 +72,14 @@ export class PostFormComponent {
       }
     });
   }
+
+  objectDeepDiff(data: object | any, oldData: object | any): Partial<Post> {
+    const record: any = {};
+    Object.keys(data).forEach((key: string) => {
+      if (data[key] !== oldData[key]) {
+        record[key] = data[key];
+      }
+    });
+    return record;
+  };
 }

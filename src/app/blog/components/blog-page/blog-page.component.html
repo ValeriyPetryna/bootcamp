@@ -1,6 +1,10 @@
 <div class="content">
   <div class="content__blog">
+    <mat-progress-bar *ngIf="!posts.length" color="primary" mode="indeterminate"> </mat-progress-bar>
     <app-post *ngFor="let post of posts" [post]="post"> </app-post>
+    <div class="error" *ngIf="!posts.length">
+      <p>Cannot find posts by this filter.</p>
+    </div>
   </div>
   <app-sidebar class="content__aside"></app-sidebar>
 </div>

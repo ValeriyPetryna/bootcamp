@@ -1,12 +1,24 @@
-@import '/src/styles/variables';
+@import "/src/styles/variables";
 
 .aside {
   display: flex;
   flex-direction: column;
   padding: 5px;
   background-color: $base-sidebar-background;
+
+  &-header {
+    text-align: center;
+  }
 }
 
 p {
   margin: 0;
+}
+
+.chips {
+  margin: 0 auto;
+
+  &__pill {
+    padding: 10px;
+  }
 }

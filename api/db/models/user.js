@@ -1,42 +1,60 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const user = Schema({
-  username: {
-    required: true,
-    lowercase: true,
-    unique: true,
-    type: String,
-  },
-  password: {
-    required: true,
-    type: String,
-  },
-  email: {
-    required: true,
-    unique: true,
-    type: String,
-  },
-  profile: {
-    firstName: String,
-    lastName: String,
-    avatar: String,
-    bio: String,
-  },
-  createdAt: {
-    type: String,
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: String,
-    type: Date,
-    default: Date.now,
-  },
-});
+const Role = mongoose.model(
+  "Role",
+  new Schema({
+    name: String,
+    enum: ["user", "moderator", "admin"],
+  })
+);
 
-const User = mongoose.model("Users", user);
+const user = Schema(
+  {
+    username: {
+      required: [true, "username not provided"],
+      lowercase: true,
+      unique: true,
+      type: String,
+    },
+    password: {
+      required: true,
+      type: String,
+    },
+    email: {
+      required: [true, "email not provided"],
+      unique: [true, "email already exists in database!"],
+      type: String,
+      validate: {
+        validator: function (v) {
+          return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+        },
+        message: '{VALUE} is not a valid email!'
+      }
+    },
+    profile: {
+      firstName: String,
+      lastName: String,
+      avatar: String,
+      bio: String,
+      posts: [{
+        ref: "Post",
+        type: Schema.Types.ObjectId,
+      }],
+    },
+    roles: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Role"
+      }
+    ]
+  },
+  { timestamps: true }
+);
+
+const User = mongoose.model("User", user);
 
 module.exports = {
   User,
+  Role
 };

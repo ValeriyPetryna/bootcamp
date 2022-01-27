@@ -10,19 +10,23 @@
       </div>
     </div>
     <div class="post__like">
-      <button
-        mat-mini-fab
+      <mat-icon
         color="primary"
-        aria-label="Example icon button with a heart icon"
-        (click)="likePost()"
+        [class.clicked]="toggle"
+        (click)="likePost(post)"
+        matBadge="{{ post.likes?.length }}"
+        matBadgeColor="primary"
+        matBadgeOverlap="false"
+        matBadgeSize="medium"
+        >favorite</mat-icon
       >
-        <p class="post__like-number">{{ post.likes?.length || "" }}</p>
-        <mat-icon class="post__like-icon">favorite</mat-icon>
-      </button>
     </div>
   </div>
   <p class="post__title">{{ post.title }}</p>
   <p class="post__content">{{ post.content }}</p>
-  <a class="post__content-more" [routerLink]="['posts', post._id]" >Read more...</a>
+  <div class="post__content-additional">
+    <a class="post__content-more" [routerLink]="['posts', post._id]">Read more...</a>
+    <mat-icon matBadge="{{ post.comments ? post.comments.length : 0 }}" matBadgeColor="primary" matBadgeSize="medium">mode_comment</mat-icon>
+  </div>
   <hr />
 </article>
