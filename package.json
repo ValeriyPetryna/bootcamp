@@ -1,6 +1,7 @@
 {
   "name": "bootcamp",
   "version": "0.0.0",
+  "type": "module",
   "main": "./api/server.js",
   "scripts": {
     "ng": "ng",
@@ -9,7 +10,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:prod": "npm run build && npm run start",
-    "lint": "eslint \"src/**/*.ts\""
+    "lint": "eslint . --ext .ts,.js"
   },
   "private": true,
   "dependencies": {
@@ -31,6 +32,7 @@
     "dotenv": "^14.3.2",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
     "mongodb": "^4.2.2",
     "mongoose": "^6.1.2",
     "rxjs": "~7.4.0",
