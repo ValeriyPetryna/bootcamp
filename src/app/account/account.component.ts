@@ -24,10 +24,10 @@ export class AccountComponent implements OnInit {
 
   ngOnInit(): void {
     this.userSub = this.auth.user().subscribe((data) => (this.user = data));
-    if(this.user?.id) {
+    if (this.user?.id) {
       this.http.getUserById(this.user.id).subscribe((data) => {
         this.userInfo = data;
-  
+
         this.http.getUserPosts(this.user.id).subscribe((data) => {
           this.myPosts = data;
           this.dataSource = new MatTableDataSource(data);
@@ -40,8 +40,4 @@ export class AccountComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
-  // ngOnDestroy(): void {
-  //   this.userSub.unsubscribe();
-  // }
 }

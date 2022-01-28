@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./registration-page.component.scss'],
 })
 export class RegistrationPageComponent {
-  hide: boolean = false;
+  hide = false;
   signUpForm: FormGroup;
   errors: any = {
     username: {

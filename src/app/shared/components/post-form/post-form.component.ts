@@ -81,5 +81,5 @@ export class PostFormComponent {
       }
     });
     return record;
-  };
+  }
 }

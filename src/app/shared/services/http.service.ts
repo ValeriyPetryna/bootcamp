@@ -8,13 +8,13 @@ import { environment } from 'src/environments/environment';
 export class HttpService {
   constructor(public http: HttpClient) {}
   // todo: add http headers
-  public getPosts(tag: string = ''): Observable<Post[]> {
+  public getPosts(tag = ''): Observable<Post[]> {
     const query: string = tag ? `?tag=${tag}` : '';
 
     return this.http.get<Post[]>(`${environment.apiURL}/posts${query}`);
   }
 
-  public getUserPosts(userId: string = ''): Observable<Post[]> {
+  public getUserPosts(userId = ''): Observable<Post[]> {
     const query: string = userId ? `?user=${userId}` : '';
     return this.http.get<Post[]>(`${environment.apiURL}/posts${query}`);
   }

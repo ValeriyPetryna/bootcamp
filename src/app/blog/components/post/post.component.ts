@@ -14,7 +14,7 @@ export class PostComponent implements OnInit, OnDestroy {
   @Input() post!: Post;
   toggle!: boolean | undefined;
   user!: TokenData;
-  loggedIn: boolean = false;
+  loggedIn = false;
   userSub!: Subscription;
 
   constructor(private httpService: HttpService, private auth: AuthService) {}

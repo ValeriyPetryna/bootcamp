@@ -20,10 +20,11 @@ export class PostPageComponent implements OnInit, OnDestroy {
   public id!: string | null;
   public notFound!: boolean;
   public post!: Post;
-  public showComments: boolean = true;
-  public buttonName: string = 'Show comments';
   public form: FormGroup = new FormGroup({});
   public validateForm!: boolean;
+
+  public showComments = true;
+  public buttonName = 'Show comments';
 
   user!: TokenData;
   isUserLogged!: boolean;
@@ -43,11 +44,11 @@ export class PostPageComponent implements OnInit, OnDestroy {
     private httpService: HttpService,
     private auth: AuthService,
     public modal: MatDialog,
-    public fb: FormBuilder,
+    public fb: FormBuilder
   ) {
     this.form = fb.group({
       comment: ['', [Validators.required]],
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -82,20 +83,18 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   public editPost(post: Post): void {
-    this.modal.open(PostFormComponent, {...this.modalOptions, data: post});
+    this.modal.open(PostFormComponent, { ...this.modalOptions, data: post });
   }
 
-  public onSubmit(){
+  public onSubmit() {
     if (this.form.valid) {
       const comment: any = {
         content: this.form.value.comment,
-        postId: this.post._id
+        postId: this.post._id,
       };
 
-      this.httpService.addComment(comment).subscribe(data => {
-        this.updatePostData();
-      });
-      
+      this.httpService.addComment(comment).subscribe(() => this.updatePostData());
+
       this.form.reset();
     } else {
       this.validateForm = true;
@@ -103,12 +102,12 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   private updatePostData(): void {
-    if(this.id) {
+    if (this.id) {
       this.httpService.getPostById(this.id).subscribe({
         next: (data) => {
           this.post = data;
         },
-        error: (e) => {
+        error: () => {
           this.notFound = true;
         },
       });

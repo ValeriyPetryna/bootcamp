@@ -9,7 +9,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  tags!: Array<Tag>; // todo: add type 
+  tags!: Array<Tag>;
 
   constructor(private blogService: BlogService, private httpService: HttpService) {}
 
@@ -20,7 +20,7 @@ export class SidebarComponent implements OnInit {
     });
   }
 
-  public filterByTag(tag: string = ''): void {
+  public filterByTag(tag = ''): void {
     this.blogService.feedPosts(tag);
   }
 }
