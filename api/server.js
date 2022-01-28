@@ -1,17 +1,15 @@
-const env = require('dotenv');
-env.config();
+import path from "path";
+import express from "express";
+import cors from "cors";
+import bodyParser from "body-parser";
 
-const path = require("path");
-const express = require("express");
-const cors = require("cors");
-const apiRouter = require("./routes/index");
-const bodyParser = require("body-parser");
-
-const { DIST } = require("./utils/config");
-const { errorHandler } = require("./middlewares/index");
+import router from "./routes/index.js";
+import conf from "./utils/config.js";
+import db from "./db/mongo.js";
+import { errorHandler } from "./middlewares/index.js";
 
 const app = express();
-const db = require("./db/mongo");
+const __dirname = path.resolve();
 
 db();
 
@@ -19,12 +17,12 @@ app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(express.static(DIST));
+app.use(express.static(conf.DIST));
 
-app.use("/api", apiRouter);
+app.use("/api", router);
 
 app.all("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "../", DIST, "/index.html"));
+  res.sendFile(path.join(__dirname, conf.DIST, "/index.html"));
 });
 
 // global error handler

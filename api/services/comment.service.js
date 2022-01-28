@@ -1,5 +1,5 @@
-const repo = require("../repository/comment.repo");
-const postRepo = require("../repository/post.repo");
+import * as repo from "../repository/comment.repo.js";
+import * as postRepo from "../repository/post.repo.js";
 
 const getAllComments = () => repo.findAll();
 
@@ -46,7 +46,7 @@ const unsetComment = async (commentId) => {
   return removeFromPost;
 };
 
-module.exports = {
+export {
   getAllComments,
   getOneComment,
   updateComment,

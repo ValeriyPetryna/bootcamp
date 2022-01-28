@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
+import { verifyToken } from "../middlewares/index.js";
+import { getAll, getOne, createOne, updateOne, deleteOne } from "../controllers/comment.controller.js";
+
 const router = express.Router();
-const { authJwt } = require("../middlewares/index");
 
-const commentCtrl = require("../controllers/comment.controller");
+router.get("/", getAll);
+router.post("/", [verifyToken], createOne);
+router.get("/:id", getOne);
+router.patch("/:id", [verifyToken], updateOne);
+router.delete("/:id", [verifyToken], deleteOne);
 
-router.get("/", commentCtrl.getAll);
-router.post("/", [authJwt.verifyToken], commentCtrl.createOne);
-router.get("/:id", commentCtrl.getOne);
-router.patch("/:id", [authJwt.verifyToken], commentCtrl.updateOne);
-router.delete("/:id", [authJwt.verifyToken], commentCtrl.deleteOne);
-
-module.exports = router;
+export default router;

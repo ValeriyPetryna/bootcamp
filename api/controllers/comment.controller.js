@@ -1,4 +1,4 @@
-const { getAllComments, getOneComment, updateComment, setComment, unsetComment } = require("../services/comment.service");
+import { getAllComments, getOneComment, updateComment, setComment, unsetComment } from "../services/comment.service.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -68,7 +68,7 @@ const updateOne = async (req, res, next) => {
 const deleteOne = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const removed = await unsetComment(id)
+    const removed = await unsetComment(id);
 
     if (!removed) {
       res.status(500).send({
@@ -86,7 +86,7 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   getAll,
   getOne,
   createOne,

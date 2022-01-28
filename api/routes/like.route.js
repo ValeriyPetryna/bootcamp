@@ -1,11 +1,11 @@
-const express = require("express");
+import express from "express";
+import { getAll, changeOne, getOne, deleteOne } from "../controllers/like.controller.js";
+
 const router = express.Router();
 
-const likeCtrl = require("../controllers/like.controller");
+router.get("/", getAll);
+router.patch("/", changeOne);
+router.get("/:id", getOne);
+router.delete("/:id", deleteOne);
 
-router.get("/", likeCtrl.getAll);
-router.patch("/", likeCtrl.changeOne);
-router.get("/:id", likeCtrl.getOne);
-router.delete("/:id", likeCtrl.deleteOne);
-
-module.exports = router;
+export default router;

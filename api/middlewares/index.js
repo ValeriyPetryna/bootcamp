@@ -1,9 +1,12 @@
-const authJwt = require("./auth");
-const verifySignUp = require("./verifySignup");
-const { errorHandler } = require("./errorHandler");
+import { errorHandler } from "./errorHandler.js";
+import { verifyToken, isAdmin, isModerator } from "./auth.js";
+import { checkDuplicateUsernameOrEmail, checkRolesExisted } from "./verifySignup.js";
 
-module.exports = {
-  authJwt,
-  verifySignUp,
+export {
+  verifyToken,
+  isAdmin,
+  isModerator,
+  checkDuplicateUsernameOrEmail,
+  checkRolesExisted,
   errorHandler,
 };

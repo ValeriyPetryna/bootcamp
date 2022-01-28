@@ -1,4 +1,4 @@
-const { User } = require("../db/models/user");
+import { User } from "../db/models/user.js";
 
 const findAll = async () => {
   const users = await User.find({}).sort({ createdAt: -1 });
@@ -38,10 +38,4 @@ const deleteOne = async (id) => {
   return removed;
 };
 
-module.exports = {
-  findAll,
-  findOne,
-  createOne,
-  updateOne,
-  deleteOne,
-};
+export { findAll, findOne, createOne, updateOne, deleteOne };

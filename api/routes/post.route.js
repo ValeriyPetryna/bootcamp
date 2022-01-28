@@ -1,13 +1,13 @@
-const express = require("express");
+import express from "express";
+import { verifyToken } from "../middlewares/index.js";
+import { getAll, createOne, getOne, updateOne, deleteOne } from "../controllers/post.controller.js";
+
 const router = express.Router();
 
-const postCtrl = require("../controllers/post.controller");
-const { authJwt } = require("../middlewares/index");
+router.get("/", getAll);
+router.post("/", [verifyToken], createOne);
+router.get("/:id", getOne);
+router.patch("/:id", [verifyToken], updateOne);
+router.delete("/:id", [verifyToken], deleteOne);
 
-router.get("/", postCtrl.getAll);
-router.post("/", [authJwt.verifyToken], postCtrl.createOne);
-router.get("/:id", postCtrl.getOne);
-router.patch("/:id", [authJwt.verifyToken], postCtrl.updateOne);
-router.delete("/:id", [authJwt.verifyToken], postCtrl.deleteOne);
-
-module.exports = router;
+export default router;

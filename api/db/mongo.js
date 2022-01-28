@@ -1,10 +1,9 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+import conf from "../utils/config.js";
 
-const { MONGO_URL } = require("../utils/config");
-
-module.exports = () => {
+export default () => {
   mongoose
-    .connect(MONGO_URL, {
+    .connect(conf.MONGO_URL, {
       useNewUrlParser: true,
     })
     .then(() => {

@@ -1,14 +1,14 @@
-const express = require("express");
+import express from "express";
+import { allAccess, getOne, userBoard, moderatorBoard, adminBoard } from "../controllers/user.controller.js";
+import { verifyToken, isModerator, isAdmin } from "../middlewares/index.js";
+
 const router = express.Router();
 
-const userCtrl = require("../controllers/user.controller");
-const { authJwt } = require("../middlewares/index");
+router.get("/all", allAccess);
+router.get("/user", [verifyToken], userBoard);
+router.get("/mod", [verifyToken, isModerator], moderatorBoard);
+router.get("/admin", [verifyToken, isAdmin], adminBoard);
 
-router.get("/all", userCtrl.allAccess);
-router.get("/user", [authJwt.verifyToken], userCtrl.userBoard);
-router.get("/mod", [authJwt.verifyToken, authJwt.isModerator], userCtrl.moderatorBoard);
-router.get("/admin", [authJwt.verifyToken, authJwt.isAdmin], userCtrl.adminBoard);
+router.get("/:id", [verifyToken], getOne);
 
-router.get("/:id", [authJwt.verifyToken], userCtrl.getOne);
-
-module.exports = router;
+export default router;

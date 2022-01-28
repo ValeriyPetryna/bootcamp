@@ -1,4 +1,4 @@
-const { getAllPosts, getOnePost, createPost, updatePost, removePost } = require("../services/post.service");
+import { getAllPosts, getOnePost, createPost, updatePost, removePost } from "../services/post.service.js";
 
 const getAll = async (req, res, next) => {
   const { tag, user } = req.query;
@@ -87,7 +87,7 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   getAll,
   getOne,
   createOne,

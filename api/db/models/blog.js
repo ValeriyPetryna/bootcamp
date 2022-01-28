@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const { Schema } = mongoose;
 
 const comment = Schema(
@@ -85,7 +86,7 @@ const Comment = mongoose.model("Comment", comment);
 const Tag = mongoose.model("Tag", tag);
 const Like = mongoose.model("Like", like);
 
-module.exports = {
+export {
   Post,
   Comment,
   Tag,

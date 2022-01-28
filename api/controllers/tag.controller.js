@@ -1,4 +1,4 @@
-const { getAllTags, getOneTag, createTag, updateTag, removeTag, tagToggle } = require("../services/tag.service");
+import { getAllTags, getOneTag, createTag, updateTag, removeTag, tagToggle } from "../services/tag.service.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -103,7 +103,7 @@ const changeOne = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   getAll,
   getOne,
   createOne,

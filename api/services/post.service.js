@@ -1,4 +1,4 @@
-const repo = require("../repository/post.repo");
+import * as repo from "../repository/post.repo.js";
 
 const getAllPosts = async (tag, user) => {
   const posts = await repo.findAll(tag, user);
@@ -14,7 +14,7 @@ const updatePost = (id, post) => repo.updateOne(id, post);
 
 const removePost = (id) => repo.deleteOne(id);
 
-module.exports = {
+export {
   getAllPosts,
   getOnePost,
   createPost,

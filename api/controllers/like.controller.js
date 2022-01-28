@@ -1,4 +1,5 @@
-const { getAllLikes, getOneLike, likeToggle, removeLike } = require("../services/like.service");
+import jwt_decode from 'jwt-decode';
+import { getAllLikes, getOneLike, likeToggle, removeLike } from "../services/like.service.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -30,10 +31,10 @@ const getOne = async (req, res, next) => {
 
 const changeOne = async (req, res, next) => {
   try {
-    // const { postId, userId } = req.body;
     const { postId } = req.body;
     const token = req.headers["x-access-token"];
-    const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+    const userId = jwt_decode(token).id;
 
     const like = await likeToggle(postId, userId);
 
@@ -71,9 +72,4 @@ const deleteOne = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  getAll,
-  getOne,
-  changeOne,
-  deleteOne,
-};
+export { getAll, getOne, changeOne, deleteOne };

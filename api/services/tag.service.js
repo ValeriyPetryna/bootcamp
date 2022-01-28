@@ -1,5 +1,5 @@
-const repo = require("../repository/tag.repo");
-const postRepo = require("../repository/post.repo");
+import * as repo from "../repository/tag.repo.js";
+import * as postRepo from "../repository/post.repo.js";
 
 const getAllTags = () => repo.findAll();
 
@@ -31,7 +31,7 @@ const tagToggle = async (postId, tagId) => {
   return result;
 };
 
-module.exports = {
+export {
   getAllTags,
   getOneTag,
   createTag,

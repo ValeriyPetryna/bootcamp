@@ -1,8 +1,8 @@
-const roleRepo = require("../repository/role.repo");
-const userRepo = require("../repository/user.repo");
-const bcrypt = require("bcryptjs");
-const config = require("../utils/config");
-const jwt = require("jsonwebtoken");
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import config from "../utils/config.js";
+import * as roleRepo from "../repository/role.repo.js";
+import * as userRepo from "../repository/user.repo.js";
 
 const register = async (user) => {
   const userData = await prepareUser(user);
@@ -83,7 +83,7 @@ const comparePassword = (value, password) => {
   return bcrypt.compareSync(value, password);
 };
 
-module.exports = {
+export {
   register,
   login,
 };

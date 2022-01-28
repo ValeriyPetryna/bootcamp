@@ -1,4 +1,4 @@
-const { Like } = require("../db/models/blog");
+import { Like } from "../db/models/blog.js";
 
 const findAll = async () => {
   const likes = await Like.find({});
@@ -21,7 +21,7 @@ const deleteOne = async (id) => {
   return removed;
 };
 
-module.exports = {
+export {
   findAll,
   findOne,
   createOne,

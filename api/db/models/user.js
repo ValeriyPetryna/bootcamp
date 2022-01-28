@@ -1,4 +1,5 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
+
 const { Schema } = mongoose;
 
 const Role = mongoose.model(
@@ -29,32 +30,34 @@ const user = Schema(
         validator: function (v) {
           return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
         },
-        message: '{VALUE} is not a valid email!'
-      }
+        message: "{VALUE} is not a valid email!",
+      },
     },
     profile: {
       firstName: String,
       lastName: String,
       avatar: String,
       bio: String,
-      posts: [{
-        ref: "Post",
-        type: Schema.Types.ObjectId,
-      }],
+      posts: [
+        {
+          ref: "Post",
+          type: Schema.Types.ObjectId,
+        },
+      ],
     },
     roles: [
       {
         type: Schema.Types.ObjectId,
-        ref: "Role"
-      }
-    ]
+        ref: "Role",
+      },
+    ],
   },
   { timestamps: true }
 );
 
 const User = mongoose.model("User", user);
 
-module.exports = {
+export {
   User,
-  Role
+  Role,
 };
