@@ -3,6 +3,12 @@
 .post {
   margin: 10px 0;
 
+  border: 0.5px solid;
+
+  border-radius: 20px;
+  box-shadow: 5px 5px #919191;
+  padding: 15px 30px 15px 15px;
+
   &__header {
     display: flex;
     flex-direction: row;

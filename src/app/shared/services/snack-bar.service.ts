@@ -32,7 +32,12 @@ export class SnackBarService {
     snack.onAction().subscribe(this.redirect());
   }
 
-  public errorSnack(res: string): void {
-    this._snackBar.open(res, 'Close', this.options);
+  public errorSnack(res: string, redirectOptions: any): void {
+    const snack = this._snackBar.open(res, 'Close', this.options);
+
+    if(redirectOptions?.redirect) {
+      snack.afterDismissed().subscribe(this.redirect(redirectOptions.url));
+      snack.onAction().subscribe(this.redirect(redirectOptions.url));
+    }
   }
 }

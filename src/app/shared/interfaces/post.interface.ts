@@ -11,6 +11,7 @@ export interface Post {
 }
 
 export interface Tag {
+  _id: string;
   name: string;
 }
 

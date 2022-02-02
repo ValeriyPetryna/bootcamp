@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSub!: Subscription;
 
   modalOptions: object = {
-    width: '500px',
-    height: '500px',
+    width: '600px',
+    height: '700px',
   };
 
   constructor(public modal: MatDialog, public blogService: BlogService, private router: Router, private auth: AuthService) {}
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(): void {
-    this.modal.open(PostFormComponent, this.modalOptions);
+    this.modal.open(PostFormComponent, { ...this.modalOptions, data: {} });
   }
 
   public refreshData(): void {

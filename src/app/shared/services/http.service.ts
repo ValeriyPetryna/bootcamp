@@ -54,4 +54,18 @@ export class HttpService {
   public removeComment(id: string): Observable<any> {
     return this.http.delete<any>(`${environment.apiURL}/comments/${id}`);
   }
+
+  public getLikedPosts(id = ''): Observable<any> {
+    const query: string = id ? `?userId=${id}` : '';
+
+    return this.http.get<any>(`${environment.apiURL}/likes${query}`);
+  }
+
+  public createTag(name = '', body: any): Observable<any> {
+    return this.http.post<any>(`${environment.apiURL}/tags/${name}`, body);
+  }
+
+  public setTag(id = '', body: any): Observable<any> {
+    return this.http.patch<any>(`${environment.apiURL}/tags/set/${id}`, body);
+  }
 }
