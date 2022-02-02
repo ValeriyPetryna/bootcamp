@@ -1,4 +1,4 @@
-const { Tag } = require("../db/models/blog");
+import { Tag } from "../db/models/blog.js";
 
 const findAll = async () => {
   const tags = await Tag.find({});
@@ -32,7 +32,7 @@ const deleteOne = async (id) => {
   return removed;
 };
 
-module.exports = {
+export {
   findAll,
   findOne,
   createOne,

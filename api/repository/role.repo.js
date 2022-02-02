@@ -1,4 +1,4 @@
-const { Role } = require("../db/models/user");
+import { Role } from "../db/models/user.js";
 
 const findAll = async (query) => {
   const roles = await Role.find(query);
@@ -21,9 +21,4 @@ const deleteOne = async (id) => {
   return removed;
 };
 
-module.exports = {
-  findAll,
-  findOne,
-  createOne,
-  deleteOne,
-};
+export { findAll, findOne, createOne, deleteOne };

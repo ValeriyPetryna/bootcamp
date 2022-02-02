@@ -19,12 +19,39 @@
       </mat-form-field>
     </div>
     <div class="postForm__item">
-      <mat-form-field class="postForm__item-input" appearance="fill">
+      <div class="postForm__item-input">
         <mat-label>Article content</mat-label>
-        <textarea rows="8" matInput formControlName="content" placeholder="content"></textarea>
+        <angular-editor formControlName="content" [config]="editorConfig"></angular-editor>
         <mat-error *ngIf="!!showValidationError('content')">
           {{ showValidationError("content") }}
         </mat-error>
+      </div>
+    </div>
+    <div *ngIf="postData?.tags" class="postForm__item">
+      <mat-form-field class="postForm__item-input" appearance="fill">
+        <mat-label>Tags</mat-label>
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip *ngFor="let tag of postData.tags" (removed)="tagToggle(tag._id)">
+            {{ tag.name }}
+            <button matChipRemove>
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+          <input
+            placeholder="New tag..."
+            #tagInput
+            [formControl]="tagCtrl"
+            [matAutocomplete]="auto"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addTag($event)"
+          />
+        </mat-chip-list>
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selectedTag($event)">
+          <mat-option *ngFor="let tag of allTags" [value]="tag">
+            {{ tag.name }}
+          </mat-option>
+        </mat-autocomplete>
       </mat-form-field>
     </div>
     <div class="postForm__item">

@@ -1,6 +1,8 @@
 <mat-progress-bar *ngIf="!post && !notFound" color="primary" mode="indeterminate"> </mat-progress-bar>
 <article *ngIf="post" class="post">
-  <div class="post__container">
+  <h1 class="post__title">{{ post.title }}</h1>
+  <br />
+  <mat-card class="post__container">
     <div class="post__header">
       <div class="post__author">
         <div class="post__author-picture">
@@ -11,75 +13,76 @@
           <p class="post__date">{{ post.createdAt | date: "longDate" }}</p>
         </div>
       </div>
-    </div>
-    <div class="post__actions">
-      <button mat-icon-button [matMenuTriggerFor]="menu">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        <button (click)="deletePost(post._id)" mat-menu-item [disabled]="!isUserLogged">
-          <mat-icon>delete</mat-icon>
-          <span>Delete</span>
-        </button>
-        <button mat-menu-item (click)="editPost(post)" [disabled]="!isUserLogged">
-          <mat-icon>edit</mat-icon>
-          <span>Edit</span>
-        </button>
-      </mat-menu>
-    </div>
-  </div>
-
-  <p class="post__title">{{ post.title }}</p>
-  <p class="post__content">{{ post.content }}</p>
-  <hr />
-  <mat-slide-toggle (click)="toggle()" color="primary">{{ buttonName }}</mat-slide-toggle>
-</article>
-<div *ngIf="showComments && post?.comments?.length">
-  <hr />
-  <div *ngFor="let comment of post.comments" class="post comment">
-    <div class="post__container">
-      <div class="post__header">
-        <div class="post__author">
-          <div class="post__author-picture">
-            <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
-          </div>
-          <div class="post__author-info">
-            <p class="post__author-name">{{ comment.userId.username }}</p>
-            <p class="post__date">January 4, 2022</p>
-          </div>
-        </div>
-      </div>
       <div class="post__actions">
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button (click)="deleteComment(comment._id)" mat-menu-item [disabled]="!isUserLogged">
+          <button (click)="deletePost(post._id)" mat-menu-item [disabled]="!isUserLogged">
             <mat-icon>delete</mat-icon>
             <span>Delete</span>
           </button>
-          <button mat-menu-item [disabled]="!isUserLogged">
+          <button mat-menu-item (click)="editPost(post)" [disabled]="!isUserLogged">
             <mat-icon>edit</mat-icon>
             <span>Edit</span>
           </button>
         </mat-menu>
       </div>
     </div>
-    <p class="post__content">{{ comment.content }}</p>
+    <p class="post__content" [innerHTML]="post.content"></p>
+  </mat-card>
+
+  <div class="post__tags" *ngIf="post.tags.length">
+    <mat-chip-list aria-label="Tags">
+      <mat-chip class="post__tags-item" *ngFor="let tag of post.tags">
+        {{ tag.name }}
+      </mat-chip>
+    </mat-chip-list>
+  </div>
+  <mat-slide-toggle (click)="toggle()" color="primary">{{ buttonName }}</mat-slide-toggle>
+</article>
+
+<div *ngIf="showComments && post?.comments?.length">
+  <div *ngFor="let comment of post.comments" class="post__comment">
+    <div class="post__comment-item">
+      <div class="comment__author">
+        <div class="comment__author-info">
+          <div class="comment__author-picture">
+            <img src="./assets/images/user-pic.png" alt="user-pic" width="50" />
+          </div>
+          <div class="comment__meta">
+            <p class="comment__author-name">{{ comment.userId.username }}</p>
+            <p class="comment__date">January 4, 2022</p>
+          </div>
+        </div>
+        <div class="comment__actions">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button (click)="deleteComment(comment._id)" mat-menu-item [disabled]="!isUserLogged">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+            <button mat-menu-item [disabled]="!isUserLogged">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+          </mat-menu>
+        </div>
+      </div>
+      <p class="comment__content">{{ comment.content }}</p>
+    </div>
   </div>
 </div>
-
-<!-- <hr /> -->
 <p *ngIf="!post?.comments?.length" class="info">No comments found</p>
-
 <form *ngIf="isUserLogged" class="post comment__form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field class="comment__form-input" appearance="fill">
     <mat-label>Leave a comment</mat-label>
     <textarea matInput cdkTextareaAutosize placeholder="Ex. It makes me feel..." formControlName="comment"></textarea>
   </mat-form-field>
   <mat-error *ngIf="!!validateForm"> This field is required. </mat-error>
-
-  <button type="submit" mat-raised-button color="accent">Submit</button>
+  <button type="submit" mat-raised-button color="primary">Submit</button>
 </form>
 
 <div class="error" *ngIf="notFound">

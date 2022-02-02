@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -9,7 +9,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrls: ['./registration-page.component.scss'],
 })
 export class RegistrationPageComponent {
-  hide: boolean = false;
+  hide = false;
   signUpForm: FormGroup;
   errors: any = {
     username: {
@@ -27,11 +27,11 @@ export class RegistrationPageComponent {
     },
   };
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, public snackBarService: SnackBarService) {
-    this.signUpForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
-      email: ['', [Validators.required, Validators.minLength(4)]],
+  constructor(private auth: AuthService, public snackBarService: SnackBarService) {
+    this.signUpForm = new FormGroup({
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
+      email: new FormControl('', [Validators.required, Validators.minLength(4)]),
     });
   }
 

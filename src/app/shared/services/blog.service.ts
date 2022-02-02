@@ -9,7 +9,7 @@ export class BlogService {
 
   constructor(public httpService: HttpService) {}
 
-  public feedPosts(tag: string = ''): void {
+  public feedPosts(tag = ''): void {
     this.httpService.getPosts(tag).subscribe((posts) => this.postStream.next(posts));
   }
 

@@ -1,5 +1,6 @@
+import * as userRepo from "../repository/user.repo.js";
+
 const ROLES = ["user", "admin", "moderator"];
-const userRepo = require("../repository/user.repo");
 
 const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   const userByName = await userRepo.findOne({ username: req.body.username });
@@ -32,7 +33,7 @@ const checkRolesExisted = (req, res, next) => {
   next();
 };
 
-module.exports = {
+export {
   checkDuplicateUsernameOrEmail,
   checkRolesExisted,
 };

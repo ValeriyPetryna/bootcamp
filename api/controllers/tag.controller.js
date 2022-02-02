@@ -1,4 +1,4 @@
-const { getAllTags, getOneTag, createTag, updateTag, removeTag, tagToggle } = require("../services/tag.service");
+import { getAllTags, getOneTag, createTag, updateTag, removeTag, tagToggle } from "../services/tag.service.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -64,6 +64,25 @@ const updateOne = async (req, res, next) => {
   }
 };
 
+const setOne = async (req, res, next) => {
+  const { id } = req.params;
+  const { tag } = req.body;
+
+  try {
+    const updatedTag = await updateTag(id, tag);
+    if (updatedTag) {
+      res.send(updatedTag);
+    } else {
+      res.status(404).send({
+        status: 404,
+        message: "Tag with selected id does not exists",
+      });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 const deleteOne = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -103,11 +122,12 @@ const changeOne = async (req, res, next) => {
   }
 };
 
-module.exports = {
+export {
   getAll,
   getOne,
   createOne,
   updateOne,
   deleteOne,
   changeOne,
+  setOne
 };

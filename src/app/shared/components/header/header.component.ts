@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { PostFormComponent } from 'src/app/shared/components/post-form/post-form.component';
 import { BlogService } from '../../services/blog.service';
@@ -13,7 +13,7 @@ import { TokenData } from '../../interfaces/user.interface';
   styleUrls: ['./header.component.scss'],
 })
 export class HeaderComponent implements OnInit, OnDestroy {
-  title: string = 'My Blog';
+  title = 'My Blog';
 
   user!: TokenData;
   isUserLogged!: boolean;
@@ -22,8 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   userSub!: Subscription;
 
   modalOptions: object = {
-    width: '500px',
-    height: '500px',
+    width: '600px',
+    height: '700px',
   };
 
   constructor(public modal: MatDialog, public blogService: BlogService, private router: Router, private auth: AuthService) {}
@@ -34,7 +34,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   public openDialog(): void {
-    this.modal.open(PostFormComponent, this.modalOptions);
+    this.modal.open(PostFormComponent, { ...this.modalOptions, data: {} });
   }
 
   public refreshData(): void {

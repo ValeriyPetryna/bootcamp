@@ -50,7 +50,6 @@ export class AuthService {
 
   public getUserData(token: string | null): TokenData | null {
     if(token) {
-      console.log(JSON.parse(atob(token.split('.')[1])))
       return JSON.parse(atob(token.split('.')[1]));
     }
     

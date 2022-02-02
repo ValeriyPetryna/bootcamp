@@ -1,5 +1,5 @@
-const repo = require("../repository/tag.repo");
-const postRepo = require("../repository/post.repo");
+import * as repo from "../repository/tag.repo.js";
+import * as postRepo from "../repository/post.repo.js";
 
 const getAllTags = () => repo.findAll();
 
@@ -24,14 +24,14 @@ const removeTag = (id) => repo.deleteOne(id);
 const tagToggle = async (postId, tagId) => {
   const post = await postRepo.findOne(postId);
 
-  const toggle = post.tags.filter((el) => el.toString() === tagId).length;
+  const toggle = post.tags.filter((el) => el.toString().match(tagId)).length;
 
   const result = await postRepo.tagToggle({ tagId, postId, toggle });
 
   return result;
 };
 
-module.exports = {
+export {
   getAllTags,
   getOneTag,
   createTag,

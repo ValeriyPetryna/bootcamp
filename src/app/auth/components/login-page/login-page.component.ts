@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { AuthService } from '../../services/auth.service';
 
@@ -23,10 +23,10 @@ export class LoginPageComponent {
     },
   };
 
-  constructor(private formBuilder: FormBuilder, private auth: AuthService, public snackBarService: SnackBarService) {
-    this.loginForm = this.formBuilder.group({
-      username: ['', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]],
-      password: ['', [Validators.required, Validators.minLength(4)]],
+  constructor(private auth: AuthService, public snackBarService: SnackBarService) {
+    this.loginForm = new FormGroup({
+      username: new FormControl('', [Validators.required, Validators.minLength(4), Validators.maxLength(50)]),
+      password: new FormControl('', [Validators.required, Validators.minLength(4)]),
     });
   }
 

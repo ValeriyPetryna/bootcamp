@@ -1,17 +1,18 @@
-const config = require("../utils/config");
-const jwt = require("jsonwebtoken");
-
-const { User, Role } = require("../db/models/user");
-const userRepo = require("../repository/user.repo");
-const roleRepo = require("../repository/role.repo");
+import jwt from "jsonwebtoken";
+import jwt_decode from "jwt-decode";
+import config from "../utils/config.js";
+import * as userRepo from "../repository/user.repo.js";
+import * as roleRepo from "../repository/role.repo.js";
 
 const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
-    return res.status(403).send({ message: "No token provided!" });
+    next({ message: "No token provided!" });
+    return;
   }
-  const userId = JSON.parse(atob(token.split('.')[1])).id;
+
+  const userId = jwt_decode(token).id;
 
   req.body.userId = userId;
   // decode token
@@ -68,8 +69,4 @@ const isModerator = async (req, res, next) => {
   }
 };
 
-module.exports = {
-  verifyToken,
-  isAdmin,
-  isModerator,
-};
+export { verifyToken, isAdmin, isModerator };

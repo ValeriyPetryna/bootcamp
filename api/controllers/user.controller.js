@@ -1,4 +1,4 @@
-const { getAllUsers, getOneUser, createUser, updateUser, removeUser } = require("../services/user.service");
+import { getAllUsers, getOneUser, createUser, updateUser, removeUser } from "../services/user.service.js";
 
 const getAll = async (req, res, next) => {
   try {
@@ -11,7 +11,6 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const result = await getOneUser({ id });
 
@@ -103,13 +102,12 @@ const moderatorBoard = (req, res) => {
   res.status(200).send("Moderator Content.");
 };
 
-module.exports = {
-  // getAll,
+export {
+  getAll,
   getOne,
-  // createOne,
-  // updateOne,
-  // deleteOne,
-
+  createOne,
+  updateOne,
+  deleteOne,
   allAccess,
   userBoard,
   adminBoard,

@@ -1,4 +1,4 @@
-const { Post } = require("../db/models/blog");
+import { Post } from "../db/models/blog.js";
 
 const findAll = async (tag, user) => {
   let posts;
@@ -23,7 +23,7 @@ const findAll = async (tag, user) => {
       { $match: { "tags.name": tag } },
     ]);
   } else {
-    const query = user ? {userId: user} : {};
+    const query = user ? { userId: user } : {};
     posts = await Post.find(query).populate("tags", "tag -_id").populate("likes").populate("userId", "profile username").sort({ createdAt: -1 });
   }
 
@@ -31,11 +31,14 @@ const findAll = async (tag, user) => {
 };
 
 const findOne = async (id) => {
-  const post = await Post.findById(id).populate("likes", "userId").populate({
-    path: 'comments',
-    select: "content userId",
-    populate: { path: 'userId', select: 'username' }
-  });
+  const post = await Post.findById(id)
+    .populate("likes", "userId")
+    .populate("tags")
+    .populate({
+      path: "comments",
+      select: "content userId",
+      populate: { path: "userId", select: "username" },
+    });
 
   if (!post) {
     throw new Error("Cannot find document");
@@ -89,18 +92,9 @@ const commentToggle = async (options) => {
 const tagToggle = async (options) => {
   const updateQuery = !options.toggle ? { $push: { tags: options.tagId } } : { $pull: { tags: options.tagId } };
 
-  const tag = await Post.findByIdAndUpdate({ _id: options.postId }, updateQuery);
+  const tag = await Post.findByIdAndUpdate({ _id: options.postId }, updateQuery, { new: true }).populate("tags").select("tags");
 
   return tag;
 };
 
-module.exports = {
-  findAll,
-  findOne,
-  createOne,
-  updateOne,
-  deleteOne,
-  commentToggle,
-  likeToggle,
-  tagToggle,
-};
+export { findAll, findOne, createOne, updateOne, deleteOne, commentToggle, likeToggle, tagToggle };

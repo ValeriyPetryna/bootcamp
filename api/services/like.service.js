@@ -1,7 +1,7 @@
-const repo = require("../repository/like.repo");
-const postRepo = require("../repository/post.repo");
+import * as repo from "../repository/like.repo.js";
+import * as postRepo from "../repository/post.repo.js";
 
-const getAllLikes = () => repo.findAll();
+const getAllLikes = (userId) => repo.findAll(userId);
 
 const getOneLike = (id) => repo.findOne(id);
 
@@ -23,7 +23,7 @@ const likeToggle = async (postId, userId) => {
   return result;
 };
 
-const removeOne = (id) => repo.deleteOne(id);
+const removeLike = (id) => repo.deleteOne(id);
 
 const getLikeId = async (exists, likeOptions) => {
   let likeId;
@@ -39,9 +39,9 @@ const getLikeId = async (exists, likeOptions) => {
   return likeId;
 };
 
-module.exports = {
+export {
   getAllLikes,
   getOneLike,
   likeToggle,
-  removeOne,
+  removeLike,
 };

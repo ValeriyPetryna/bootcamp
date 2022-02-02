@@ -1,14 +1,14 @@
-const express = require("express");
+import express from "express";
+import { getAll, getOne, createOne, updateOne, deleteOne, changeOne } from "../controllers/tag.controller.js";
+
 const router = express.Router();
 
-const tagCtrl = require("../controllers/tag.controller");
+router.get("/", getAll);
+router.get("/:id", getOne);
+router.post("/:tag", createOne);
+router.patch("/:id", updateOne);
+router.delete("/:id", deleteOne);
 
-router.get("/", tagCtrl.getAll);
-router.get("/:id", tagCtrl.getOne);
-router.post("/:tag", tagCtrl.createOne);
-router.patch("/:id", tagCtrl.updateOne);
-router.delete("/:id", tagCtrl.deleteOne);
+router.patch("/set/:id", changeOne);
 
-router.patch("/set/:id", tagCtrl.changeOne);
-
-module.exports = router;
+export default router;

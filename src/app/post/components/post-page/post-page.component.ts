@@ -1,15 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Post } from '../../../shared/interfaces/post.interface';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+
+import { Post } from '../../../shared/interfaces/post.interface';
 import { BlogService } from 'src/app/shared/services/blog.service';
 import { SnackBarService } from 'src/app/shared/services/snack-bar.service';
 import { HttpService } from 'src/app/shared/services/http.service';
-import { TokenData } from 'src/app/shared/interfaces/user.interface';
-import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/auth/services/auth.service';
 import { PostFormComponent } from 'src/app/shared/components/post-form/post-form.component';
-import { MatDialog } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { TokenData } from 'src/app/shared/interfaces/user.interface';
 
 @Component({
   selector: 'app-post-page',
@@ -20,20 +21,21 @@ export class PostPageComponent implements OnInit, OnDestroy {
   public id!: string | null;
   public notFound!: boolean;
   public post!: Post;
-  public showComments: boolean = true;
-  public buttonName: string = 'Show comments';
   public form: FormGroup = new FormGroup({});
   public validateForm!: boolean;
 
-  user!: TokenData;
-  isUserLogged!: boolean;
+  public showComments = true;
+  public buttonName = 'Show comments';
 
-  loginSub!: Subscription;
-  userSub!: Subscription;
+  public user!: TokenData;
+  public isUserLogged!: boolean;
+
+  public loginSub!: Subscription;
+  public userSub!: Subscription;
 
   public modalOptions: object = {
-    width: '500px',
-    height: '500px',
+    width: '600px',
+    height: '700px',
   };
 
   constructor(
@@ -42,12 +44,11 @@ export class PostPageComponent implements OnInit, OnDestroy {
     private snackBarService: SnackBarService,
     private httpService: HttpService,
     private auth: AuthService,
-    public modal: MatDialog,
-    public fb: FormBuilder,
+    public modal: MatDialog
   ) {
-    this.form = fb.group({
-      comment: ['', [Validators.required]],
-    })
+    this.form = new FormGroup({
+      comment: new FormControl('', [Validators.required]),
+    });
   }
 
   ngOnInit(): void {
@@ -69,9 +70,8 @@ export class PostPageComponent implements OnInit, OnDestroy {
 
   public deleteComment(id: string): void {
     this.httpService.removeComment(id).subscribe({
-      next: (res: any) => {
+      next: () => {
         this.post.comments = this.post.comments?.filter((item) => item._id !== id);
-        // this.snackBarService.openSnackBar(res);
       },
     });
   }
@@ -82,20 +82,18 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   public editPost(post: Post): void {
-    this.modal.open(PostFormComponent, {...this.modalOptions, data: post});
+    this.modal.open(PostFormComponent, { ...this.modalOptions, data: post });
   }
 
-  public onSubmit(){
+  public onSubmit() {
     if (this.form.valid) {
       const comment: any = {
         content: this.form.value.comment,
-        postId: this.post._id
+        postId: this.post._id,
       };
 
-      this.httpService.addComment(comment).subscribe(data => {
-        this.updatePostData();
-      });
-      
+      this.httpService.addComment(comment).subscribe(() => this.updatePostData());
+
       this.form.reset();
     } else {
       this.validateForm = true;
@@ -103,12 +101,12 @@ export class PostPageComponent implements OnInit, OnDestroy {
   }
 
   private updatePostData(): void {
-    if(this.id) {
+    if (this.id) {
       this.httpService.getPostById(this.id).subscribe({
         next: (data) => {
           this.post = data;
         },
-        error: (e) => {
+        error: () => {
           this.notFound = true;
         },
       });
