@@ -1,7 +1,8 @@
 import { Comment } from "../db/models/blog.js";
 
-const findAll = async () => {
-  const comments = await Comment.find({}).sort({ createdAt: -1 });
+const findAll = async (id) => {
+  const query = id ? { userId: id } : {};
+  const comments = await Comment.find(query).sort({ createdAt: -1 });
   return comments;
 };
 

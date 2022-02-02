@@ -26,7 +26,7 @@ app.all("*", (req, res) => {
 });
 
 // global error handler
-app.use(errorHandler);
+app.use((err, req, res, next) => errorHandler(err, req, res, next));
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server started at: http://localhost:${process.env.PORT || 3000}`);

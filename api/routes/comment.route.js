@@ -4,7 +4,7 @@ import { getAll, getOne, createOne, updateOne, deleteOne } from "../controllers/
 
 const router = express.Router();
 
-router.get("/", getAll);
+router.get("/", [verifyToken], getAll);
 router.post("/", [verifyToken], createOne);
 router.get("/:id", getOne);
 router.patch("/:id", [verifyToken], updateOne);

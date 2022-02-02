@@ -2,7 +2,7 @@ import { getAllComments, getOneComment, updateComment, setComment, unsetComment 
 
 const getAll = async (req, res, next) => {
   try {
-    const result = await getAllComments();
+    const result = await getAllComments(req.body.userId);
     res.send(result);
   } catch (error) {
     next(error);

@@ -11,7 +11,6 @@ const getAll = async (req, res, next) => {
 
 const getOne = async (req, res, next) => {
   const { id } = req.params;
-
   try {
     const result = await getOneUser({ id });
 

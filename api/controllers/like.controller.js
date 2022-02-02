@@ -2,8 +2,9 @@ import jwt_decode from 'jwt-decode';
 import { getAllLikes, getOneLike, likeToggle, removeLike } from "../services/like.service.js";
 
 const getAll = async (req, res, next) => {
+  const { userId } = req.query;
   try {
-    const result = await getAllLikes();
+    const result = await getAllLikes(userId);
     res.send(result);
   } catch (error) {
     next(error);

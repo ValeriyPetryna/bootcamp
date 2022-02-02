@@ -1,7 +1,7 @@
 import * as repo from "../repository/like.repo.js";
 import * as postRepo from "../repository/post.repo.js";
 
-const getAllLikes = () => repo.findAll();
+const getAllLikes = (userId) => repo.findAll(userId);
 
 const getOneLike = (id) => repo.findOne(id);
 

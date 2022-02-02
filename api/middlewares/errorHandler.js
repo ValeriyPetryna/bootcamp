@@ -11,6 +11,14 @@ const errorHandler = (err, req, res) => {
     return res.status(401).json({ message: "Invalid Token" });
   }
 
+  if (err.name === "TokenExpiredError") {
+    return res.status(401).json({ message: "Token was expired, please login again" });
+  }
+
+  if (err.message === "No token provided!") {
+    return res.status(403).json(err);
+  }
+
   if (err.message.match(/not found/i)) {
     return res.status(404).json({ message: err.message });
   }

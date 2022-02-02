@@ -24,7 +24,7 @@ const removeTag = (id) => repo.deleteOne(id);
 const tagToggle = async (postId, tagId) => {
   const post = await postRepo.findOne(postId);
 
-  const toggle = post.tags.filter((el) => el.toString() === tagId).length;
+  const toggle = post.tags.filter((el) => el.toString().match(tagId)).length;
 
   const result = await postRepo.tagToggle({ tagId, postId, toggle });
 

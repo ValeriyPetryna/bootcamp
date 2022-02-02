@@ -1,7 +1,8 @@
 import { Like } from "../db/models/blog.js";
 
-const findAll = async () => {
-  const likes = await Like.find({});
+const findAll = async (userId) => {
+  const query = userId ? { userId } : {};
+  const likes = await Like.find(query).populate('postId', 'title likes createdAt').populate('userId', 'username');
   return likes;
 };
 

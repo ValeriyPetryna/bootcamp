@@ -1,7 +1,7 @@
 import * as repo from "../repository/comment.repo.js";
 import * as postRepo from "../repository/post.repo.js";
 
-const getAllComments = () => repo.findAll();
+const getAllComments = (id = '') => repo.findAll(id);
 
 const getOneComment = (id) => repo.findOne(id);
 

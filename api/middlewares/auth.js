@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import jwt_decode from 'jwt-decode';
+import jwt_decode from "jwt-decode";
 import config from "../utils/config.js";
 import * as userRepo from "../repository/user.repo.js";
 import * as roleRepo from "../repository/role.repo.js";
@@ -8,7 +8,8 @@ const verifyToken = (req, res, next) => {
   let token = req.headers["x-access-token"];
 
   if (!token) {
-    return res.status(403).send({ message: "No token provided!" });
+    next({ message: "No token provided!" });
+    return;
   }
 
   const userId = jwt_decode(token).id;
@@ -68,8 +69,4 @@ const isModerator = async (req, res, next) => {
   }
 };
 
-export {
-  verifyToken,
-  isAdmin,
-  isModerator,
-};
+export { verifyToken, isAdmin, isModerator };
