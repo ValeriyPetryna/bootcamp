@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Tag } from 'src/app/shared/interfaces/post.interface';
 import { BlogService } from 'src/app/shared/services/blog.service';
 import { HttpService } from 'src/app/shared/services/http.service';
 
@@ -8,7 +9,7 @@ import { HttpService } from 'src/app/shared/services/http.service';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent implements OnInit {
-  tags!: any; // todo: add type 
+  tags!: Array<Tag>; // todo: add type 
 
   constructor(private blogService: BlogService, private httpService: HttpService) {}
 

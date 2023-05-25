@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Post } from 'src/app/shared/interfaces/post.interface';
+import { Post, Comment } from 'src/app/shared/interfaces/post.interface';
 import { environment } from 'src/environments/environment';
 
 @Injectable()
@@ -11,6 +11,11 @@ export class HttpService {
   public getPosts(tag: string = ''): Observable<Post[]> {
     const query: string = tag ? `?tag=${tag}` : '';
 
+    return this.http.get<Post[]>(`${environment.apiURL}/posts${query}`);
+  }
+
+  public getUserPosts(userId: string = ''): Observable<Post[]> {
+    const query: string = userId ? `?user=${userId}` : '';
     return this.http.get<Post[]>(`${environment.apiURL}/posts${query}`);
   }
 
@@ -32,5 +37,21 @@ export class HttpService {
 
   public getTags(): Observable<any> {
     return this.http.get<any>(`${environment.apiURL}/tags`);
+  }
+
+  public likeToggle(body: any): Observable<any> {
+    return this.http.patch<any>(`${environment.apiURL}/likes`, body);
+  }
+
+  public getUserById(id: string): Observable<any> {
+    return this.http.get<any>(`${environment.apiURL}/users/${id}`);
+  }
+
+  public addComment(body: any): Observable<Comment> {
+    return this.http.post<Comment>(`${environment.apiURL}/comments`, body);
+  }
+
+  public removeComment(id: string): Observable<any> {
+    return this.http.delete<any>(`${environment.apiURL}/comments/${id}`);
   }
 }

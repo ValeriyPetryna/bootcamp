@@ -9,11 +9,11 @@ const updateComment = (id, comment) => repo.updateOne(id, comment);
 
 const removeComment = (id) => repo.deleteOne(id);
 
-const setComment = async (postId, content) => {
+const setComment = async (postId, content, userId) => {
   await postRepo.findOne(postId); // check if post exists
 
   if (content) {
-    const newComment = await repo.createOne({ postId, content });
+    const newComment = await repo.createOne({ postId, content, userId });
     const commentId = newComment._id;
 
     const saved = await postRepo.commentToggle({ postId, commentId, toggle: true });

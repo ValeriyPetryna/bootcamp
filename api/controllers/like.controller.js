@@ -30,7 +30,10 @@ const getOne = async (req, res, next) => {
 
 const changeOne = async (req, res, next) => {
   try {
-    const { postId, userId } = req.body;
+    // const { postId, userId } = req.body;
+    const { postId } = req.body;
+    const token = req.headers["x-access-token"];
+    const userId = JSON.parse(atob(token.split('.')[1])).id;
 
     const like = await likeToggle(postId, userId);
 
